@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="author" content="guofan">
+    <meta name="copyright" content="Copyright (c) 1998-2015 mobileFED">
+    <meta name="description" content="mobileFED"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>mobileFED</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/normalize.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/skeleton.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/base.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/animate/animations.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/prism/prism.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+</head>
+<body>
+    <header class="doc-head clearfix">
+        <a href="./../index.html" class="back-home">HOME</a>
+        <h4 class="h-theme">弹出层</h4>
+    </header>
+    <div class="container">
+        <div class="row">
+            <h5 class="p-t10 b-b-2 m-b10">描述</h5>
+            <div class="box c-163">
+               fancy.Box；<br/>
+               自定义：fancy.Box.showBox()；<br/>
+               alert框：fancy.Box.alert；<br/>
+               confirm框：fancy.Box.confirm；<br/>
+               提示框：fancy.Box.showMsg
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例一</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.Box.alert('调用alert方法！');
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-alert" href="javascript:;">Run</a>
+
+            <h5 class="p-t10 b-b-2 m-b10">示例二</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+    fancy.Box.confirm('调用confirm方法！');
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-confirm" href="javascript:;">Run</a>
+        </div>
+    </div>
+    <script src="../public/js/zepto/zepto.js"></script>
+    <script src="../public/js/base/base.js"></script>
+    <script src="../public/js/prism/prism.js"></script>
+    <script src="../public/js/prism/prism.plugins.js"></script>
+    <script>
+        Zepto('.js-alert').on('click', function() {
+            fancy.Box.alert('成功调用alert方法！');
+        });
+        Zepto('.js-confirm').on('click', function() {
+            fancy.Box.confirm('成功调用confirm方法！', function() {alert('点击了确定')}, function() {alert('点击了取消')});
+        });
+    </script>
+</body>
+</html>

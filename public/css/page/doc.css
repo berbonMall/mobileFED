@@ -1,0 +1,35 @@
+.doc-head {
+  width: 100%;
+  padding: 7px 0;
+  background-color: #F5822A; }
+
+a.back-home {
+  float: left;
+  margin: 3px 0 0 10px;
+  color: #fff; }
+
+.h-theme {
+  width: 200px;
+  text-align: center;
+  margin: 0 auto;
+  color: #fff; }
+
+.b-b-2 {
+  border-bottom: 1px solid #F5822A; }
+
+.bgc-red {
+  background-color: #f00; }
+
+.bgc-gree {
+  background-color: #0f0; }
+
+.bgc-blue {
+  background-color: #00f; }
+
+.bgc-white {
+  background-color: #fff; }
+
+.bgc-grey {
+  background-color: #ccc; }
+
+/*# sourceMappingURL=doc.css.map */

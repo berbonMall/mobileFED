@@ -1,0 +1,9 @@
+@charset "UTF-8";
+//常用地址设置
+$staticUrl : 'http://static.berbon.com';
+$dir : '/marketingH5';
+$loadImg : '/images/load.gif';
+$link : $staticUrl + $dir;
+$loadImgSrc : $staticUrl + $dir + $loadImg;
+//常用颜色设置
+$linkColor:#1dacff;

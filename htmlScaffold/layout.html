@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="author" content="guofan">
+    <meta name="copyright" content="Copyright (c) 1998-2015 mobileFED">
+    <meta name="description" content="mobileFED"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>layout</title>
+    <link rel="stylesheet" type="text/css" href="./../public/css/skeleton/normalize.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/skeleton/skeleton.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/base.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/prism/prism.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./layout/css/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+</head>
+<body>
+    <header class="doc-head clearfix">
+        <a href="./../index.html" class="back-home">HOME</a>
+        <h4 class="h-theme">布局</h4>
+    </header>
+    <div class="container">
+        <div class="row">
+            <h5 class="p-t10 b-b-2 m-b10">描述</h5>
+            <div class="box c-163">
+                常用布局 <br/>
+                三列布局，左右两列定宽，中间列自适应 <br/>
+                两列布局，左列定宽，右列自适应
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>三列布局，左右两列定宽，中间列自适应</small></h5>
+            <div class="box c-163">
+<pre>
+<code class="language-markup">
+<textarea>
+<div class="u-full-width dp-box h-50">
+    <div class="box-left w-100 bgc-red">
+        left
+    </div>
+    <div class="box-middle box-flex-1 bgc-gree">
+        middle
+    </div>
+    <div class="box-right w-100 bgc-blue">
+        right
+    </div>
+</div>
+</textarea>
+</code>
+</pre>
+            </div>
+            <div class="u-full-width dp-box h-50">
+                <div class="box-left w-100 bgc-red">
+                    left
+                </div>
+                <div class="box-middle box-flex-1 bgc-gree">
+                    middle
+                </div>
+                <div class="box-right w-100 bgc-blue">
+                    right
+                </div>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>两列布局，左列定宽，右列自适应</small></h5>
+<pre>
+<code class="language-markup">
+<textarea>
+ <div class="u-full-width dp-box h-50">
+     <div class="box-left w-100 bgc-red">
+         left
+     </div>
+     <div class="box-middle box-flex-1 bgc-gree">
+         right
+     </div>
+ </div>
+</textarea>
+</code>
+</pre>
+            <div class="u-full-width dp-box h-50">
+                <div class="box-left w-100 bgc-red">
+                    left
+                </div>
+                <div class="box-middle box-flex-1 bgc-gree">
+                    right
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="../public/js/prism/prism.js"></script>
+    <script src="../public/js/prism/prism.plugins.js"></script>
+</body>
+</html>

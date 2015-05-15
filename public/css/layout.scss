@@ -1,0 +1,104 @@
+@import 'global.scss';
+/* loading和mask效果 */
+.mask-layer {position:fixed;left:0;top:0;width:100%;height:100%;}
+.mask-op {position:absolute;left:0;top:0;width:100%;height:100%;}
+.load {position:relative;width:24px;height:24px;left:50%;top:50%;z-index:999;margin-left:-12px;margin-top:-12x;}
+.blur {-webkit-filter: blur(2px);-moz-filter:blur(2px);-ms-filter: blur(2px);-o-filter: blur(2px);filter:blur(2px);}
+/* 弹出层全局样式 */
+.g-box {width:100%;z-index:9999;}
+.g-box-inner {padding:30px}
+.g-box-main {border:1px solid #1DACFF;background-color:#FFF;}
+.g-box-h {padding:5px 10px;background-color:#1DACFF;color:#fff}
+.g-box-h a{color:#fff;text-decoration:none;}
+.g-box-btn-control input {
+  border:none 0;
+}
+.g-box .msg{padding:8px;text-align:justfy;font-size:12px}
+/*文字溢出省略号*/
+.ellipsis {
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+}
+/*滑动选择*/
+.select-box {
+  -moz-transition: -moz-transform .3s ease-in-out 0s;
+  -ms-transition: -ms-transform .3s ease-in-out 0s;
+  -webkit-transition: -webkit-transform .3s ease-in-out 0s;
+  -o-transition: -o-transform .3s ease-in-out 0s;
+  transition: transform .3s ease-in-out 0s;
+  -ms-transform: translate3d(0,100%,0);
+  -moz-transform: translate3d(0,100%,0);
+  -webkit-transform: translate3d(0,100%,0);
+  -o-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 9999;
+  -webkit-user-select: none;
+}
+.select-box.show{
+  -ms-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -o-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.select-panel {
+  background-color: #F7F7F7;
+  padding: 10px 0;
+}
+.select-title {
+  color: #4ECCC4;
+  font-size: 16px;
+  text-align: center;
+  font-weight: normal;
+}
+.select-confirm {
+  margin:15px 0 25px;
+  text-align: center;
+}
+.select-sure {
+  color: #4ECCC4 !important;
+}
+.select-cancle {
+  color: #4ECCC4 !important;
+  margin-left: 16%;
+}
+.select-body {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.select-content li{
+  height: 48px;
+  line-height: 48px;
+  font-size: 18px;
+  color: #555;
+  text-align:center;
+}
+.select-content li.selected{
+  color: #4ECCC4;
+}
+.select-line, .select-line:after{
+  top: 95px;
+  position: absolute;
+  border-top: 1px solid #e9e9e9;
+  width: 100%;
+  height: 0;
+  font-size: 0;
+}
+.select-line:after{
+  content: "";
+  top: 48px;
+}
+input[data-role="select"] {
+  padding:4px;
+  border:1px solid #ccc;
+  color:#ccc
+}
+
+

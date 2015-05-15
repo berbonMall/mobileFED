@@ -1,0 +1,105 @@
+.ellipsis{
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+  background:#ccc;
+}
+.dp-box {
+  display: -moz-box;
+  display: -webkit-box;
+  display: box;
+}
+.box-flex-1 {
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1;
+}
+.bd-b {
+  border-bottom:1px solid #4d4d4d;
+}
+.label-box-content .search-item {
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid #ccc;
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  margin:4px 4px 4px 0;
+}
+.list-view .list-itme-ul li {
+  margin-bottom:10px;
+  border-bottom:1px solid #111;
+}
+.list-view .list-item-left {
+   display: inline-block;
+   width: 100px;
+   height: 100px;
+   text-align: center;
+   overflow: hidden;
+ }
+.list-view .list-item-left .pic{
+  width: 100px;
+  height: 100px;
+}
+.list-view .list-item-title {
+  display:block;
+}
+.list-view .list-item-title span{
+  display:block;
+  height: 44px;
+}
+.large-view {
+  position:relative;
+  overflow: hidden;
+}
+.large-view .list-itme-ul li {
+  position:relative;
+  width:50%;
+  float:left;
+  border-bottom: 1px solid #E0E1E1;
+  border-left: 1px solid #E0E1E1;
+  margin-left: -1px;
+}
+.large-view .list-itme-ul .dp-box {
+  display:block;
+  padding:12px;
+}
+.large-view .list-item-left {
+  display:block;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+.large-view .box-flex-1 {
+  display:block;
+  margin-left:0;
+}
+.large-view .list-item-left .pic{
+  width: 100%;
+}
+.large-view .list-item-title {
+  display:block;
+}
+.large-view .list-item-title span {
+  display:block;
+
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+
+}
+.large-view li:nth-of-type(1) {
+  border-top: 1px solid #DBDBDB;
+}
+.large-view li:nth-of-type(2) {
+  border-top: 1px solid #DBDBDB;
+  margin-right:0;
+}
+.large-view .list-itme-ul .list-item-main {
+  padding:0;
+}
+.large-view .list-itme-ul .list-item-main .freight, .large-view .list-itme-ul .list-item-main .area{
+  display:none;
+}
+.large-view .list-itme-ul .list-item-main .num{
+  text-align:left;
+}

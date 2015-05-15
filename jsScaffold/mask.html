@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="author" content="guofan">
+    <meta name="copyright" content="Copyright (c) 1998-2015 mobileFED">
+    <meta name="description" content="mobileFED"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>mobileFED</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/normalize.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/skeleton.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/base.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/animate/animations.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/prism/prism.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+</head>
+<body>
+    <header class="doc-head clearfix">
+        <a href="./../index.html" class="back-home">HOME</a>
+        <h4 class="h-theme">loading & mask</h4>
+    </header>
+    <div class="container">
+        <div class="row">
+            <h5 class="p-t10 b-b-2 m-b10">描述</h5>
+            <div class="box c-163">
+                fancy.load类;<br/>
+                创建load：fancy.createLoad();<br/>
+                关闭load: fancy.closeLoad();
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例一：只有蒙版</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+   fancy.load.createLoad({
+        isLoad : false
+    });
+</code>
+</pre>
+                <a class="button btn-light-navy js-mask" href="javascript:;">Run</a>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例二：带loading的蒙版</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+    fancy.load.createLoad();
+</code>
+</pre>
+                <a class="button btn-light-navy js-load" href="javascript:;">Run</a>
+            </div>
+        </div>
+    </div>
+    <script src="../public/js/zepto/zepto.js"></script>
+    <script src="../public/js/base/base.js"></script>
+    <script src="../public/js/prism/prism.js"></script>
+    <script src="../public/js/prism/prism.plugins.js"></script>
+    <script>
+        Zepto('.js-mask').on('click', function() {
+            fancy.load.createLoad({
+                isLoad : false
+            });
+        });
+        Zepto('.js-load').on('click', function() {
+            fancy.load.createLoad();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+/*layout*/
+.dp-box {
+  display: -moz-box;
+  display: -webkit-box;
+  display: box; }
+
+.box-flex-1 {
+  -moz-box-flex: 1;
+  -webkit-box-flex: 1; }
+
+/*common*/
+.h-50 {
+  height: 50px;
+  background-color: #ccc; }
+
+.bgc-red {
+  background-color: #f00; }
+
+.bgc-gree {
+  background-color: #0f0; }
+
+.bgc-blue {
+  background-color: #00f; }
+
+/*# sourceMappingURL=search.css.map */

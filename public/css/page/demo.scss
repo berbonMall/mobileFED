@@ -1,0 +1,52 @@
+@import 'foo.css';
+//变量
+/*变量*/
+$set : false;
+
+//嵌套
+/*嵌套*/
+div{
+  h1 {
+    color:#fff;
+  }
+  background:#ccc;
+  a {
+    border:1px solid #ccc;
+    span {
+      color:#fff;
+    }
+  }
+}
+//继承
+/*继承*/
+.class1 {
+  border-bottom:1px solid #ccc;
+}
+.class2 {
+  @extend .class1;
+  font-size:12px;
+}
+//宏,重用代码块
+/*宏,重用代码块*/
+@mixin left {
+  float:left;
+  margin:0;
+}
+div {
+  @include left;
+  color:#ddd;
+}
+@mixin rounded($radius : 10px) {
+  border-radius : $radius;
+  -moz-border-radius : $radius;
+  -webkit-border-radius : $radius;
+}
+#navbar {
+  @include rounded(20px);
+  /*条件语句*/
+  @if $set {
+    line-height : 20px;
+  } @else {
+    line-height : 40px;
+  }
+}

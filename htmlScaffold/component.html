@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="author" content="guofan">
+    <meta name="copyright" content="Copyright (c) 1998-2015 mobileFED">
+    <meta name="description" content="mobileFED"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>component</title>
+    <link rel="stylesheet" type="text/css" href="./../public/css/skeleton/normalize.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/skeleton/skeleton.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/base.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/prism/prism.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./component/css/component.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+</head>
+<body>
+    <header class="doc-head clearfix">
+        <a href="./../index.html" class="back-home">HOME</a>
+        <h4 class="h-theme">component</h4>
+    </header>
+    <div class="container">
+        <div class="row">
+            <h5 class="p-t10 b-b-2 m-b10">描述</h5>
+            <div class="box c-163">
+                顶部搜索 <br/>
+                搜索结果面板 <br/>
+                筛选标签 <br/>
+                其他标签 <br/>
+                商品列表 <br/>
+                商品详情
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>顶部搜索</small></h5>
+            <div class="box c-163">
+            </div>
+            <div class="u-full-width dp-box bgc-grey">
+                <div class="box-left w-100">
+                    <div class="p-a5">
+                        <a href="javascript:;" class="showTip button bgc-white">返回</a>
+                    </div>
+                </div>
+                <div class="box-middle box-flex-1">
+                    <div class="p-a5">
+                        <input type="text" name="" id="" class="w-p100" placeholder="搜索"/>
+                    </div>
+                </div>
+                <div class="box-right w-100">
+                    <div class="p-a5">
+                        <a href="javascript:;" class="showTip button bgc-white">消息</a>
+                    </div>
+                </div>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>搜索结果面板</small></h5>
+            <div class="u-full-width">
+                <!--样式一-->
+                <div class="label-box w-p100">
+                    <p class="label-box-title p-b5">热门搜索</p>
+                    <div class="label-box-content p-5-0">
+                        <a href="javascript:;" class="search-item">iphone1</a>
+                        <a href="javascript:;" class="search-item">iphone2</a>
+                        <a href="javascript:;" class="search-item">iphone3</a>
+                    </div>
+                </div>
+                <p class="bd-b"></p>
+                <!--样式二-->
+                <div class="label-box w-p100 p-t10">
+                    <p class="label-box-title p-b5">历史搜索</p>
+                    <div class="dp-box label-box-content p-5-0">
+                        <p class="w-100 m-t10">苹果手机</p>
+                        <div class="box-flex-1 ta-r">
+                            <a href="javascript:;" class="search-item">iphone1</a>
+                            <a href="javascript:;" class="search-item">iphone2</a>
+                        </div>
+                    </div>
+                </div>
+                <p class="bd-b"></p>
+                <!--样式三-->
+                <div class="label-box w-p100 p-t10">
+                    <div class="dp-box label-box-content p-5-0">
+                        <p class="w-100 m-t10">露营帐篷</p>
+                        <div class="box-flex-1 ta-r">
+                            <a href="javascript:;" class="search-item">安踏</a>
+                            <a href="javascript:;" class="search-item">骆驼</a>
+                        </div>
+                    </div>
+                </div>
+                <p class="bd-b"></p>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>筛选标签</small></h5>
+            <div class="u-full-width">
+                <div class="dp-box label-box-content p-5-0">
+                    <div class="box-flex-1">
+                        <div class="dp-ib w-p32 m-t7">
+                            综合
+                        </div>
+                        <div class="dp-ib w-p32 m-t7">
+                            销量
+                        </div>
+                        <div class="dp-ib w-p32 m-t7">
+                            筛选
+                        </div>
+
+                    </div>
+                    <a class="w-100 button">切换</a>
+                </div>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>商品列表一</small></h5>
+            <div class="u-full-width list-view">
+                <ul class="list-itme-ul clearfix">
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：<small>商品列表二</small></h5>
+            <div class="u-full-width large-view">
+                <ul class="list-itme-ul clearfix">
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dp-box list-item">
+                            <div class="list-item-left">
+                                <a href="###"><img src="./component/images/shoe_210x210.jpg" class="pic" alt="安踏"/></a>
+                            </div>
+                            <div class="box-flex-1 m-l6">
+                                <a class="list-item-title" href="###">
+                                    <span>安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季安踏男鞋春季</span>
+                                </a>
+                                <p class="list-item-price">
+                                    <del class="c-tb">110.00</del>
+                                </p>
+                                <div class="list-item-main dp-box c-58">
+                                    <p class="freight">免运费</p>
+                                    <p class="num box-flex-1 ta-c">1110人购买</p>
+                                    <p class="area">成都</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../public/js/prism/prism.js"></script>
+    <script src="../public/js/prism/prism.plugins.js"></script>
+</body>
+</html>
