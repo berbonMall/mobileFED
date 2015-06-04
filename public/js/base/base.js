@@ -406,9 +406,9 @@ fancy.Box = {
             id : 'layerBox',
             isSure : true,
             isCancle : true,
-            autoClose : true,//是否有自动关闭功能
-            autoCount : 5,//倒计时时间
             isSureCloseBox : true,//点确定是否关闭弹出层
+            autoClose : true,//是否有自动关闭功能
+            autoCount : 3,//倒计时时间
             sureFn : function() {
             },
             cancleFn : function() {
@@ -421,7 +421,9 @@ fancy.Box = {
         };
         opt = Zepto.extend(true, defaultOpt, opt || {});
         Zepto('body').append(fancy.Box.buildHtml(opt));
-        fancy.load.createLoad('false');
+        fancy.load.createLoad({
+            isLoad : false
+        });
         fancy.Box.setCenter('.g-box');
         var target = Zepto('#' + opt.id);
         target.css('zIndex',opt.zIndex);
@@ -431,8 +433,8 @@ fancy.Box = {
             target.addClass('animated ' + opt.transitionType);
         }
         target.find('.J-close').on('click', function() {
-            target.remove();
             opt.shutFn && opt.shutFn();
+            target.remove();
             fancy.load.closeLoad();
             if(timer) {
                 clearInterval(timer);
@@ -478,22 +480,39 @@ fancy.Box = {
             title : '提示',
             isSure : false,
             isCancle : false,
-            autoCount : time || 5,
+            autoCount : time || 3,
             transitionType : 'zoomInDown',
             content : '<p class="p-a10">'+ str +'</p>'
         })
     },
     alert : function(msg, sureFn) {
         fancy.Box.showBox({
-            title : '温馨提示',
-            content : '<p style="padding:8px;text-align:justfy;font-size:12px">'+msg+'</p>',
+            title : '提示',
+            content : '<p class="msg">'+msg+'</p>',
             sureBtnTxt : '确定',
-            is : '确定',
             transitionType : 'zoomInDown',
             autoClose : false,//是否有自动关闭功能
             isCancle : false,
             sureFn : function() {
                 sureFn && sureFn();
+            }
+        });
+    },
+    confirm : function(msg,sureFn,cancleFn) {
+        fancy.Box.showBox({
+            title : '提示',
+            content : '<p class="msg">'+msg+'</p>',
+            sureBtnTxt : '确定',
+            cancleBtnTxt : '取消',
+            isSure : true,
+            isCancle : true,
+            transitionType : 'zoomInDown',
+            autoClose : false,//是否有自动关闭功能
+            sureFn : function() {
+                sureFn && sureFn();
+            },
+            cancleFn : function() {
+                cancleFn && cancleFn();
             }
         });
     }
