@@ -32,32 +32,11 @@
             <div class="box c-163">
 <pre>
 <code class="language-javascript">
-fancy.Select.init(Zepto('#fancy'),[
-    {
-        name : '苹果手机',
-        value : 'apple'
-    },
-    {
-        name : '小米NOTE',
-        value : 'xiaomi'
-    },
-    {
-        name : '华为荣耀',
-        value : 'huawei'
-    },
-    {
-        name : '锤子T1',
-        value : 'stack'
-    },
-    {
-        name : '三星glaxy',
-        value : 'samsung'
-    },
-    {
-        name : 'ipad平板',
-        value : 'ipad'
-    }
-]);
+fancy.Select.init({
+    target : Zepto('#fancy'),
+    data : cityData,
+    level : 3//下拉层级，分为3个等级1-2-3，与上面的data对应
+});
 </code>
 </pre>
                 <input type="text" name="fancy" readonly id="fancy" data-role="select" value="请选择..."/>
