@@ -135,19 +135,19 @@ img {
 
 /* fontFamily */
 .ff-yh {
-  font-family: 'microsoft YaHei'; }
+  font-family: 'microsoft YaHei',sans-serif; }
 
 .ff-st {
-  font-family: 'SimSun'; }
+  font-family: 'SimSun',sans-serif; }
 
 .ff-ht {
-  font-family: 'SimHei'; }
+  font-family: 'SimHei',sans-serif; }
 
 .ff-kt {
-  font-family: 'KaTi'; }
+  font-family: 'KaTi',sans-serif; }
 
 .ff-ktgb {
-  font-family: 'KaTi-GB2312'; }
+  font-family: 'KaTi-GB2312',sans-serif; }
 
 /* letterSpacing */
 .lts-1 {

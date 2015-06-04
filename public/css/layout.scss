@@ -1,4 +1,13 @@
 @import 'global.scss';
+/*禁用移动Webkit的选择高亮*/
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 /* loading和mask效果 */
 .mask-layer {position:fixed;left:0;top:0;width:100%;height:100%;}
 .mask-op {position:absolute;left:0;top:0;width:100%;height:100%;}
@@ -73,12 +82,26 @@
   overflow: hidden;
   position: relative;
 }
+.select-content {
+  height:100%;
+}
+.select-level-2 .select-content {
+  width:49.8%;
+  float:left;
+}
+.select-level-3 .select-content {
+  width:33.3%;
+  float:left;
+}
 .select-content li{
   height: 48px;
   line-height: 48px;
   font-size: 18px;
   color: #555;
   text-align:center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
 }
 .select-content li.selected{
   color: #4ECCC4;
@@ -100,5 +123,67 @@ input[data-role="select"] {
   border:1px solid #ccc;
   color:#ccc
 }
+/*垂直对齐*/
+.vertical-center{
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/*背景渐变动画*/
+.bg-transi {
+  background-image: linear-gradient(#5187c4, #1c2f45);
+  background-size: auto 200%;
+  background-position: 0 100%;
+  transition: background-position 0.5s;
+}
+.bg-gradient:hover {
+  background-position: 0 0;
+}
+/*CSS实现动态省略号*/
+.ellipsis-loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis 2s infinite;
+  -moz-animation: ellipsis 2s infinite;
+  animation: ellipsis 2s infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+}
+@-moz-keyframes ellipsis {
+  from {
+    width: 2px;
+  }
+  to {
+    width: 15px;
+  }
+}
+@-moz-keyframes ellipsis {
+  from {
+    width: 2px;
+  }
+  to {
+    width: 15px;
+  }
+}
 
+@-webkit-keyframes ellipsis {
+  from {
+    width: 2px;
+  }
+  to {
+    width: 15px;
+  }
+}
+/*CSS3渐变模板*/
+.bg-gradient {
+  background: #629721;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#83b842), to(#629721));
+  background-image: -webkit-linear-gradient(top, #83b842, #629721);
+  background-image: -moz-linear-gradient(top, #83b842, #629721);
+  background-image: -ms-linear-gradient(top, #83b842, #629721);
+  background-image: -o-linear-gradient(top, #83b842, #629721);
+  background-image: linear-gradient(top, #83b842, #629721);
+}
 

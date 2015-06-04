@@ -58,6 +58,17 @@ fancy.ui = {
             return false;
         }
     },
+    /* 全部符合时返回true */
+    every : function(array, callback, thisObject){
+        if(array.every){
+            return array.every(callback, thisObject);
+        }else {
+            for(var i = 0, len = array.length; i < len; i++){
+                if(!callback.call(thisObject, array[i], i, array))  return false;
+            }
+            return true;
+        }
+    },
     /* 选项卡切换 */
     tabClick : function(obj) {
         /* obj = {
@@ -172,7 +183,7 @@ fancy.ui = {
         form.submit();
     },
     /**
-     * 和PHP一样的时间戳格式化函数
+     * 时间戳格式化函数
      * @param  {int}    timestamp 要格式化的时间戳
      * @param  {string} format    格式
      * @return {string}           格式化的时间字符串
@@ -210,6 +221,23 @@ fancy.ui = {
         var date1 = Number(startDate.replace(/[\-:\s]/g, ""));
         var date2 = Number(endDate.replace(/[\-:\s]/g, ""));
         return date2-date1;
+    },
+    /*金额格式化*/
+    /**
+     * @param  {string} s 要格式化的金额
+     * @param  {number} n    保留小数位
+     * @return {string}    格式化的金额
+     */
+    moneyFormat : function(s, n) {
+        n = n > 0 && n <= 20 ? n : 2;
+        s = parseFloat((s + "").replace(/[^\d\.-]/g, "")).toFixed(n) + "";
+        var l = s.split(".")[0].split("").reverse(),
+            r = s.split(".")[1];
+        t = "";
+        for(i = 0; i < l.length; i ++ ){
+            t += l[i] + ((i + 1) % 3 == 0 && (i + 1) != l.length ? "," : "");
+        }
+        return t.split("").reverse().join("") + "." + r;
     }
 };
 /*常用验证*/
@@ -489,21 +517,56 @@ fancy.Box = {
 //select
 fancy.namespace('Select');
 fancy.Select = {
-    renderHtml : function(data) {
+    renderHtml : function(data, level) {
+        //定义几级联动
+        var level = 'select-level-';
+        var panelLength = 3;
+        var resultLevel = level + panelLength;
         var tpl = [];
         tpl.push('<div class="u-full-width select-box">');
             tpl.push('<div class="select-panel">');
                 tpl.push('<h5 class="select-title">请选择</h5>');
-                tpl.push('<div class="select-body">');
-                    tpl.push('<div class="select-content">');
-                        tpl.push('<ul>');
-                            tpl.push('<li></li><li></li>');
-                                Zepto.each(data, function(index, item) {
-                                   tpl.push('<li data-v="' + item.value +'">'+ item.name +'</li>');
-                                });
-                             tpl.push('<li></li><li></li>');
-                        tpl.push('</ul>');
-                    tpl.push('</div>');
+                tpl.push('<div class="select-body '+ resultLevel+ '">');
+
+                   // for(var i = 0; i < panelLength; i++) {
+                        tpl.push('<div class="select-content sub-level-'+ 0 +'">');
+                            tpl.push('<ul>');
+                                tpl.push('<li></li><li></li>');
+                                    Zepto.each(data, function(index, item) {
+                                        console.log(item);
+                                        tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+                                    });
+                                tpl.push('<li></li><li></li>');
+                            tpl.push('</ul>');
+                        tpl.push('</div>');
+
+                        tpl.push('<div class="select-content sub-level-'+ 1 +'">');
+                            tpl.push('<ul>');
+                                tpl.push('<li></li><li></li>');
+                                    Zepto.each(data[2].s, function(index, item) {
+                                        tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+                                    });
+                                tpl.push('<li></li><li></li>');
+                            tpl.push('</ul>');
+                        tpl.push('</div>');
+
+                        tpl.push('<div class="select-content sub-level-'+ 2 +'">');
+                            tpl.push('<ul>');
+                                tpl.push('<li></li><li></li>');
+                                    Zepto.each(data[2].s, function(index, item) {
+                                        if(item.s) {
+                                            Zepto.each(item.s, function(k, t) {
+                                                tpl.push('<li data-v="' + t.n +'">'+ t.n +'</li>');
+                                            });
+                                        }else {
+                                            tpl.push('<li data-v="">...</li>');
+                                        }
+                                    });
+                                tpl.push('<li></li><li></li>');
+                            tpl.push('</ul>');
+                        tpl.push('</div>');
+                 //   }
+
                     tpl.push('<div class="select-line"></div>');
                  tpl.push('</div>');
                  tpl.push('<div class="select-confirm">');
@@ -549,26 +612,52 @@ fancy.Select = {
             });
         },
         trigger : function(target) {
-            var myScroll = new IScroll('.select-body',{
+            var myScroll = new IScroll('.sub-level-0',{
+                snap : 'li',
+                probeType : 2,
+                tap : true
+            });
+            var myScroll_1 = new IScroll('.sub-level-1',{
+                snap : 'li',
+                probeType : 2,
+                tap : true
+            });
+            var myScroll_2 = new IScroll('.sub-level-2',{
                 snap : 'li',
                 probeType : 2,
                 tap : true
             });
             fancy.Select.scrollHandle.showPanel();
+
             myScroll.on('scroll', function(){
-                fancy.Select.scrollHandle.updateSelected(Zepto('.select-content'),this);
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-0'),this);
             });
             myScroll.on('scrollEnd', function(){
-                fancy.Select.scrollHandle.updateSelected(Zepto('.select-content'),this);
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-0'),this);
             });
+
+            myScroll_1.on('scroll', function(){
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-1'),this);
+            });
+            myScroll_1.on('scrollEnd', function(){
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-1'),this);
+            });
+
+            myScroll_2.on('scroll', function(){
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-2'),this);
+            });
+            myScroll_2.on('scrollEnd', function(){
+                fancy.Select.scrollHandle.updateSelected(Zepto('.sub-level-2'),this);
+            });
+
             fancy.Select.scrollHandle.sureChoose(target);
             fancy.Select.scrollHandle.cancleChoose();
         }
     },
-    init : function(target, data) {
+    init : function(obj) {
         target.on('click', function() {
-            fancy.Select.renderHtml(data);
-            fancy.Select.scrollHandle.trigger(target);
+            fancy.Select.renderHtml(obj.data, obj.level);
+            fancy.Select.scrollHandle.trigger(obj.target);
         });
     }
 };

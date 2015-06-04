@@ -100,35 +100,15 @@ fancy.Select.init(Zepto('#fancy'),[
     <script src="../public/js/zepto/zepto.js"></script>
     <script src="../public/js/iScroll/iscroll.js"></script>
     <script src="../public/js/base/base.js"></script>
+    <script src="../public/js/base/cityData.json.js"></script>
     <script src="../public/js/prism/prism.js"></script>
     <script src="../public/js/prism/prism.plugins.js"></script>
     <script>
-        fancy.Select.init(Zepto('#fancy'),[
-            {
-                name : '苹果手机',
-                value : '苹果手机'
-            },
-            {
-                name : '小米NOTE',
-                value : '小米NOTE'
-            },
-            {
-                name : '华为荣耀',
-                value : '华为荣耀'
-            },
-            {
-                name : '锤子T1',
-                value : '锤子T1'
-            },
-            {
-                name : '三星glaxy',
-                value : '三星glaxy'
-            },
-            {
-                name : 'ipad平板',
-                value : 'ipad平板'
-            }
-        ]);
+        fancy.Select.init({
+            target : Zepto('#fancy'),
+            data : cityData,
+            level : 3//下拉层级，分为3个等级1-2-3，与上面的data对应
+        });
     </script>
 </body>
 </html>
