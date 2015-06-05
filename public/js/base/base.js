@@ -529,13 +529,15 @@ fancy.Box = {
 fancy.namespace('Select');
 fancy.Select = {
     //变量定义
+    extraLen : 30,
     level1_index : 0,
     level2_index : 0,
     empty : [{ "n": '...'}],
     mySrollArr : [],//存放iscroll实例对象
     symbol : '-',//连接符
-    buildPanel : function(data, level, isWraper) {
+    buildPanel : function(data, level, isWraper, extraLen) {
         var tpl = [];
+        var extraLen = extraLen || 0;
         for(var i = 0; i < level; i++) {
             if(isWraper) {
                 tpl.push('<div class="select-content sub-level-'+ i +'">');
@@ -561,6 +563,9 @@ fancy.Select = {
                             tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
                         }
                     });
+                    for(var j = 0; j < extraLen; j++) {
+                        tpl.push('<li></li>');
+                    }
                     break;
                 case 2:
                     Zepto.each(data[0].s, function(index, item) {
@@ -579,6 +584,9 @@ fancy.Select = {
                             }
                         }
                     });
+                    for(var j = 0; j < extraLen; j++) {
+                        tpl.push('<li></li>');
+                    }
                     break;
             }
 
@@ -591,7 +599,7 @@ fancy.Select = {
         }
         return tpl.join('');
     },
-    renderHtml : function(data, level) {
+    renderHtml : function(data, level, extraLen) {
         var prefix = 'select-level-';
         var className = prefix + level;
         var tpl = [];
@@ -600,7 +608,7 @@ fancy.Select = {
                 tpl.push('<h5 class="select-title">请选择</h5>');
                 tpl.push('<div class="select-body '+ className+ '">');
                 //TODO buildPanel
-                    tpl.push(fancy.Select.buildPanel(data, level, true));
+                    tpl.push(fancy.Select.buildPanel(data, level, true, extraLen));
                     tpl.push('<div class="select-line"></div>');
                  tpl.push('</div>');
                  tpl.push('<div class="select-confirm">');
@@ -657,22 +665,33 @@ fancy.Select = {
         },
         //联动切换
         switchArea : function(scrollObj, data) {
-            console.log(scrollObj);
             var panelTarget = scrollObj.wrapper;
+            console.log(panelTarget);
             if(Zepto(panelTarget).hasClass('sub-level-0')) {
-                fancy.Select.level1_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
-                Zepto('.sub-level-1 ul').html(fancy.Select.buildPanel(data[fancy.Select.level1_index].s, 1, false));
-                fancy.Select.mySrollArr[1].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                if(Zepto('.sub-level-1').size() > 0) {
+                    fancy.Select.level1_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
+                    Zepto('.sub-level-1 ul').html(fancy.Select.buildPanel(data[fancy.Select.level1_index].s, 1, false));
+                    fancy.Select.mySrollArr[1].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                }
+
+                if(Zepto('.sub-level-2').size() > 0) {
+                    Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(fancy.Select.empty, 1, false));
+                    fancy.Select.mySrollArr[2].scrollToElement(Zepto('.sub-level-2').find('li').get(0));
+                }
+
             }else if(Zepto(panelTarget).hasClass('sub-level-1')) {
-                fancy.Select.level2_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
-                if(data[fancy.Select.level1_index].s[fancy.Select.level2_index].s) {
+                if(Zepto('.sub-level-2').size() > 0) {
+                    fancy.Select.level2_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
+                }
+                if(data[fancy.Select.level1_index].s[fancy.Select.level2_index] && data[fancy.Select.level1_index].s[fancy.Select.level2_index].s) {
                     Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(data[fancy.Select.level1_index].s[fancy.Select.level2_index].s, 1, false));
                 }else {
                     Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(fancy.Select.empty, 1, false));
                 }
-                fancy.Select.mySrollArr[2].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                if(Zepto('.sub-level-2').size() > 0) {
+                    fancy.Select.mySrollArr[2].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                }
             }
-
         },
         trigger : function(target, level, data) {
             for(var i = 0; i < level; i++) {
@@ -700,7 +719,7 @@ fancy.Select = {
     },
     init : function(obj) {
         obj.target.on('click', function() {
-            fancy.Select.renderHtml(obj.data, obj.level);
+            fancy.Select.renderHtml(obj.data, obj.level, obj.extraLen);
             fancy.Select.scrollHandle.trigger(obj.target, obj.level, obj.data);
         });
     }
