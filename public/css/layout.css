@@ -226,7 +226,8 @@ input[data-role="select"] {
 /*xy-scroller*/
 /*水平滚动*/
 #wrapper {
-  height: 40px; }
+  height: 40px;
+  background-color: #F8E9DE; }
 
 #wrapper ul {
   position: absolute;
@@ -244,7 +245,8 @@ input[data-role="select"] {
 /*上下滚动*/
 #wrapperY {
   width: 200px;
-  height: 200px; }
+  height: 120px;
+  background-color: #F8E9DE; }
 
 #wrapperY ul {
   width: 200px;
