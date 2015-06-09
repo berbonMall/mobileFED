@@ -518,14 +518,6 @@ fancy.Box = {
     }
 };
 /*Scroller*/
-/**
- * @usage
- * fancy.Select.init({
-        target : Zepto('#fancy'),
-        data : cityData,
-        level : 3//下拉层级，分为3个等级1-2-3，与上面的data对应
-    });
- */
 fancy.namespace('Scroller');
 fancy.Scroller = {
     setWidth : function(ulTarget) {
@@ -572,89 +564,88 @@ fancy.Scroller = {
         var myScroll = new IScroll(opt.target, opt.pram);
     }
 };
-/*select*/
+/*Select*/
 /**
  * @usage
  * fancy.Select.init({
-        target : Zepto('#fancy'),
-        data : cityData,
-        level : 3//下拉层级，分为3个等级1-2-3，与上面的data对应
-    });
+    target : Zepto('#fancy'),
+    data : cityData,
+    stLevel : 3,//下拉层级，分为3个等级1-2-3，与上面的data对应
+    callback : function(val) {
+        alert('点击了确定，所选区域=' + val);
+        Zepto('#fancy').val(val);
+    }
+});
  */
 fancy.namespace('Select');
 fancy.Select = {
-    //变量定义
-    extraLen : 30,
-    level1_index : 0,
-    level2_index : 0,
+    myScroll : [],//scroll实例化对象存储
+    levelIndexArr : [],//当前滑动层级选中的item索引
     empty : [{ "n": '...'}],
-    mySrollArr : [],//存放iscroll实例对象
-    symbol : '-',//连接符
-    buildPanel : function(data, level, isWraper, extraLen) {
+    buildLiHtml : function(level, data) {
         var tpl = [];
-        var extraLen = extraLen || 0;
-        for(var i = 0; i < level; i++) {
-            if(isWraper) {
-                tpl.push('<div class="select-content sub-level-'+ i +'">');
-                tpl.push('<ul>');
-            }
-            tpl.push('<li></li><li></li>');
-            switch(i) {
-                case 0:
-                    Zepto.each(data, function(index, item) {
-                        if(index == 0) {
-                            tpl.push('<li class="selected" data-v="' + item.n +'">'+ item.n +'</li>');
+        if(level == 1) {
+            Zepto.each(data, function(index, item) {
+                if(index == 0) {
+                    tpl.push('<li class="selected" data-v="' + item.n +'">'+ item.n +'</li>');
+                }else {
+                    tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+                }
+            });
+        }else if(level == 2) {
+            Zepto.each(data[0].s, function(index, item) {
+                if(index == 0) {
+                    tpl.push('<li class="selected" data-v="' + item.n +'">'+ item.n +'</li>');
+                }else {
+                    tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+                }
+            });
+        }else if(level == 3) {
+            Zepto.each(data[0].s, function(index, item) {
+                if(item.s) {
+                    Zepto.each(item.s, function(k, t) {
+                        if(k == 0) {
+                            tpl.push('<li  class="selected" data-v="' + t.n +'">'+ t.n +'</li>');
                         }else {
-                            tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
-                        }
-
-                    });
-                    break;
-                case 1:
-                    Zepto.each(data[0].s, function(index, item) {
-                        if(index == 0) {
-                            tpl.push('<li class="selected" data-v="' + item.n +'">'+ item.n +'</li>');
-                        }else {
-                            tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+                            tpl.push('<li data-v="' + t.n +'">'+ t.n +'</li>');
                         }
                     });
-                    for(var j = 0; j < extraLen; j++) {
-                        tpl.push('<li></li>');
+                }else {
+                    if(index == 0) {
+                        tpl.push('<li class="selected" data-v="...">...</li>');
                     }
-                    break;
-                case 2:
-                    Zepto.each(data[0].s, function(index, item) {
-                        if(item.s) {
-                            Zepto.each(item.s, function(k, t) {
-                                if(k == 0) {
-                                    tpl.push('<li  class="selected" data-v="' + t.n +'">'+ t.n +'</li>');
-                                }else {
-                                    tpl.push('<li data-v="' + t.n +'">'+ t.n +'</li>');
-                                }
-
-                            });
-                        }else {
-                            if(index == 0) {
-                                tpl.push('<li class="selected" data-v="">...</li>');
-                            }
-                        }
-                    });
-                    for(var j = 0; j < extraLen; j++) {
-                        tpl.push('<li></li>');
-                    }
-                    break;
-            }
-
-            tpl.push('<li></li><li></li>');
-            if(isWraper) {
-                tpl.push('</ul>');
-                tpl.push('</div>');
-            }
-
+                }
+            });
         }
         return tpl.join('');
     },
-    renderHtml : function(data, level, extraLen) {
+    buildLiTpl : function(level, data) {
+        var tpl = [];
+        Zepto.each(data, function(index, item) {
+            if(index == 0) {
+                tpl.push('<li class="selected" data-v="' + item.n +'">'+ item.n +'</li>');
+            }else {
+                tpl.push('<li data-v="' + item.n +'">'+ item.n +'</li>');
+            }
+        });
+        return tpl.join('');
+    },
+    buildSubHtml : function(level, data, isLi) {
+        var tpl = [];
+        tpl.push('<div class="select-content sub-level-'+ (level-1) +'">');
+            tpl.push('<ul>');
+                tpl.push('<li></li><li></li>');
+                if(isLi) {
+                    tpl.push(fancy.Select.buildLiTpl(level, data));
+                }else {
+                    tpl.push(fancy.Select.buildLiHtml(level, data));
+                }
+                tpl.push('<li></li><li></li>');
+            tpl.push('</ul>');
+        tpl.push('</div>');
+        return tpl.join('');
+    },
+    renderHtml : function(level, data) {
         var prefix = 'select-level-';
         var className = prefix + level;
         var tpl = [];
@@ -662,28 +653,20 @@ fancy.Select = {
             tpl.push('<div class="select-panel">');
                 tpl.push('<h5 class="select-title">请选择</h5>');
                 tpl.push('<div class="select-body '+ className+ '">');
-                //TODO buildPanel
-                    tpl.push(fancy.Select.buildPanel(data, level, true, extraLen));
-                    tpl.push('<div class="select-line"></div>');
+                     for(var i = 0; i < level; i++) {
+                         tpl.push(fancy.Select.buildSubHtml(i + 1, data));
+                     }
+                     tpl.push('<div class="select-line"></div>');
                  tpl.push('</div>');
                  tpl.push('<div class="select-confirm">');
-                    tpl.push('<a class="select-sure" href="javascript:;">确定</a>');
-                    tpl.push('<a class="select-cancle" href="javascript:;">取消</a>');
+                     tpl.push('<a class="select-sure" href="javascript:;">确定</a>');
+                     tpl.push('<a class="select-cancle" href="javascript:;">取消</a>');
                  tpl.push('</div>');
              tpl.push('</div>');
         tpl.push('</div>');
         Zepto('body').append(tpl.join(''));
     },
-    scrollHandle : {
-        updateSelected : function(container, iscroll){
-            var current = container.find('li').eq(fancy.Select.scrollHandle.getCurrentSelect(container, iscroll));
-            current.addClass('selected').siblings().removeClass('selected');
-        },
-        getCurrentSelect : function(container, iscroll) {
-            var itemHeight = container.find('li').height();
-            var index = (-iscroll.y) / itemHeight + 2;
-           return index;
-        },
+    handleScroller : {
         hidePanel : function() {
             Zepto('.select-box').remove();
             fancy.load.closeLoad();
@@ -696,86 +679,132 @@ fancy.Select = {
             });
             Zepto('.select-box').addClass('show');
         },
-        sureChoose : function(target) {
-            Zepto('.select-sure').on('click', function() {
-                var selectTarget = Zepto('.select-body').find('.selected');
-                if(selectTarget.size() > 0) {
-                    var val = [];
-                    Zepto.each(selectTarget, function(index, item) {
-                        var curVal = Zepto(this).data('v');
-                        if(curVal !== '...') {
-                            console.log(curVal);
-                            val.push(curVal);
-                        }
-                    });
-                    target.val(val.join(fancy.Select.symbol));
+        updateSelected : function(iscroll){
+            var container = Zepto(iscroll.wrapper);
+            var current = container.find('li').eq(fancy.Select.handleScroller.getCurrentSelect(iscroll));
+            current.addClass('selected').siblings().removeClass('selected');
+        },
+        getCurrentSelect : function(iscroll) {
+            var container = Zepto(iscroll.wrapper);
+            var itemHeight = container.find('li').height();
+            var index = (-iscroll.y) / itemHeight + 2;
+            return index;
+        },
+        switchArea : function(iscroll, data) {
+            var targetLevel = Zepto(iscroll.wrapper);
+            var selectBody = Zepto('.select-body');
+            var sub_level_0 = Zepto('.sub-level-0');
+            var sub_level_1 = Zepto('.sub-level-1');
+            var sub_level_2 = Zepto('.sub-level-2');
+            var isLevel_1 = sub_level_1.size();
+            var isLevel_2 = sub_level_2.size();
+
+            //切换level1
+            if(targetLevel.hasClass('sub-level-0')) {
+                fancy.Select.levelIndexArr[0] = fancy.Select.handleScroller.getCurrentSelect(iscroll) - 2;
+                if(isLevel_1) {
+                    //存在第二级select
+                    //销毁iScroll实例
+                    fancy.Select.scrollerDestroy(1);
+                    sub_level_1.remove();
+                    Zepto(fancy.Select.buildSubHtml(2, data[fancy.Select.levelIndexArr[0]].s, true)).insertAfter(sub_level_0);
+                    //重建iScroll实例
+                    fancy.Select.scrollerExcute(1, data);
                 }
-                fancy.Select.scrollHandle.hidePanel();
-            });
-        },
-        cancleChoose : function() {
-            Zepto('.select-cancle').on('click', function() {
-                fancy.Select.scrollHandle.hidePanel();
-            });
-        },
-        //联动切换
-        switchArea : function(scrollObj, data) {
-            var panelTarget = scrollObj.wrapper;
-            console.log(panelTarget);
-            if(Zepto(panelTarget).hasClass('sub-level-0')) {
-                if(Zepto('.sub-level-1').size() > 0) {
-                    fancy.Select.level1_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
-                    Zepto('.sub-level-1 ul').html(fancy.Select.buildPanel(data[fancy.Select.level1_index].s, 1, false));
-                    fancy.Select.mySrollArr[1].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                if(isLevel_2) {
+                    //销毁iScroll实例
+                    fancy.Select.scrollerDestroy(2);
+                    sub_level_2.remove();
+                    if(data[fancy.Select.levelIndexArr[0]].s[0].s) {
+                        Zepto(fancy.Select.buildSubHtml(3, data[fancy.Select.levelIndexArr[0]].s[0].s, true)).insertAfter(Zepto('.sub-level-1'));
+                    }else {
+                        Zepto(fancy.Select.buildSubHtml(3, fancy.Select.empty, true)).insertAfter(Zepto('.sub-level-1'));
+                    }
+                    //重建iScroll实例
+                    fancy.Select.scrollerExcute(2, data)
                 }
 
-                if(Zepto('.sub-level-2').size() > 0) {
-                    Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(fancy.Select.empty, 1, false));
-                    fancy.Select.mySrollArr[2].scrollToElement(Zepto('.sub-level-2').find('li').get(0));
-                }
+            }else if(targetLevel.hasClass('sub-level-1')) {
+                if(isLevel_2) {
+                    //存在第三级select
+                    fancy.Select.levelIndexArr[1] = fancy.Select.handleScroller.getCurrentSelect(iscroll) - 2;
+                    //销毁iScroll实例
+                    fancy.Select.scrollerDestroy(2);
+                    sub_level_2.remove();
 
-            }else if(Zepto(panelTarget).hasClass('sub-level-1')) {
-                if(Zepto('.sub-level-2').size() > 0) {
-                    fancy.Select.level2_index = fancy.Select.scrollHandle.getCurrentSelect(Zepto(scrollObj.wrapper),scrollObj) - 2;
-                }
-                if(data[fancy.Select.level1_index].s[fancy.Select.level2_index] && data[fancy.Select.level1_index].s[fancy.Select.level2_index].s) {
-                    Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(data[fancy.Select.level1_index].s[fancy.Select.level2_index].s, 1, false));
-                }else {
-                    Zepto('.sub-level-2 ul').html(fancy.Select.buildPanel(fancy.Select.empty, 1, false));
-                }
-                if(Zepto('.sub-level-2').size() > 0) {
-                    fancy.Select.mySrollArr[2].scrollToElement(Zepto(scrollObj.wrapper).find('li').get(0));
+                    if(data[fancy.Select.levelIndexArr[0]].s[fancy.Select.levelIndexArr[1]].s) {
+                        Zepto(fancy.Select.buildSubHtml(3, data[fancy.Select.levelIndexArr[0]].s[fancy.Select.levelIndexArr[1]].s, true)).insertAfter(sub_level_1);
+                    }else {
+                        Zepto(fancy.Select.buildSubHtml(3, fancy.Select.empty, true)).insertAfter(sub_level_1);
+                    }
+
+                    //重建iScroll实例
+                    fancy.Select.scrollerExcute(2, data)
                 }
             }
-        },
-        trigger : function(target, level, data) {
-            for(var i = 0; i < level; i++) {
-                //闭包
-                (function(i) {
-                    fancy.Select.mySrollArr[i] = new IScroll('.sub-level-' + i ,{
-                        snap : 'li',
-                        probeType : 2,
-                        tap : true
-                    });
-                    fancy.Select.mySrollArr[i].on('scroll', function(){
-                        fancy.Select.scrollHandle.updateSelected(Zepto(this.wrapper),this);
-                        fancy.Select.scrollHandle.switchArea(this, data);
-                    });
-                    fancy.Select.mySrollArr[i].on('scrollEnd', function(){
-                        fancy.Select.scrollHandle.updateSelected(Zepto(this.wrapper),this);
-                        fancy.Select.scrollHandle.switchArea(this, data);
-                    });
-                })(i)
-            }
-            fancy.Select.scrollHandle.showPanel();
-            fancy.Select.scrollHandle.sureChoose(target);
-            fancy.Select.scrollHandle.cancleChoose();
         }
     },
-    init : function(obj) {
-        obj.target.on('click', function() {
-            fancy.Select.renderHtml(obj.data, obj.level, obj.extraLen);
-            fancy.Select.scrollHandle.trigger(obj.target, obj.level, obj.data);
+    scrollerDestroy : function(level) {
+        fancy.Select.myScroll[level].destroy();
+    },
+    scrollerExcute : function(level, data) {
+        fancy.Select.myScroll[level] = new IScroll('.sub-level-' + level ,{
+            snap : 'li',
+            probeType : 2,
+            tap : true
         });
+        fancy.Select.myScroll[level].on('scrollEnd', function(){
+            fancy.Select.handleScroller.updateSelected(this);
+            fancy.Select.handleScroller.switchArea(this, data);
+
+        });
+    },
+    sureChoose : function(target, callback) {
+        Zepto('.select-sure').on('click', function() {
+            var selectTarget = Zepto('.select-body').find('.selected');
+            if(selectTarget.size() > 0) {
+                var val = [];
+                Zepto.each(selectTarget, function(index, item) {
+                    var curVal = Zepto(this).data('v');
+                    if(curVal !== '...') {
+                        val.push(curVal);
+                    }
+                });
+                if(callback) {
+                    callback(val.join('-'));
+                }else {
+                    target.val(val.join('-'));
+                }
+
+            }
+            fancy.Select.handleScroller.hidePanel();
+        });
+    },
+    cancleChoose : function() {
+        Zepto('.select-cancle').on('click', function() {
+            fancy.Select.handleScroller.hidePanel();
+        });
+    },
+    trigger : function(opt) {
+        var defaultOpt = {
+            stLevel : 3,//联动层级分为3个等级1-2-3
+            data : cityData,//数据源
+            target : Zepto('#fancy')//触发对象
+        };
+        var opt = Zepto.extend(true, defaultOpt, opt || {});
+        //第一次加载，初始化
+        opt.target.on('click', function() {
+            fancy.Select.renderHtml(opt.stLevel, opt.data);
+            for(var i = 0; i < opt.stLevel; i++) {
+                fancy.Select.scrollerExcute(i, opt.data)
+            }
+            fancy.Select.handleScroller.showPanel();
+            fancy.Select.sureChoose(opt.target, opt.callback ? opt.callback : '');
+            fancy.Select.cancleChoose();
+        });
+
+    },
+    init : function(obj) {
+        fancy.Select.trigger(obj);
     }
 };
