@@ -187,3 +187,53 @@ input[data-role="select"] {
   background-image: linear-gradient(top, #83b842, #629721);
 }
 
+/*xy-scroller*/
+/*水平滚动*/
+#wrapper {
+  height:40px;
+}
+#wrapper ul {
+  position: absolute;
+  height: 40px;
+  line-height: 38px;
+}
+#wrapper ul li{
+  float: left;
+  padding: 0 6px;
+}
+#wrapper ul li a{
+  display:block;
+  text-align:center;
+}
+/*上下滚动*/
+#wrapperY {
+  width: 200px;
+  height:200px;
+}
+#wrapperY ul {
+  width: 200px;
+  height: 200px;
+  line-height: 38px;
+}
+#wrapperY ul li{
+  display:block;
+  padding: 0 6px;
+}
+#wrapperY ul li a{
+  display:block;
+  text-align:center;
+}
+.xy-scroller {
+  position: relative;
+  overflow:hidden;
+}
+.xy-scroller .xy-scroller-ul {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+}
+.scroll-box .xy-scroller-ul li {
+
+}
+
+

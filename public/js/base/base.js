@@ -517,6 +517,61 @@ fancy.Box = {
         });
     }
 };
+/*Scroller*/
+/**
+ * @usage
+ * fancy.Select.init({
+        target : Zepto('#fancy'),
+        data : cityData,
+        level : 3//下拉层级，分为3个等级1-2-3，与上面的data对应
+    });
+ */
+fancy.namespace('Scroller');
+fancy.Scroller = {
+    setWidth : function(ulTarget) {
+        var liArray = ulTarget.find('li');
+        var li_len = liArray.length;
+        var ul_width = 0;
+        Zepto.each(liArray, function(index, item) {
+            ul_width += Zepto(this).width();
+        });
+
+        ulTarget.width(ul_width);
+    },
+    setHeight : function(ulTarget) {
+        var liArray = ulTarget.find('li');
+        var li_len = liArray.length;
+        var ul_Height = 0;
+        Zepto.each(liArray, function(index, item) {
+            console.log(Zepto(this).height());
+            ul_Height += Zepto(this).height();
+        });
+
+        ulTarget.height(ul_Height);
+    },
+    init : function(opt) {
+        var defaultOpt = {
+            target: '#wrapper',
+            pram: {
+                momentum: true,
+                snap: false,
+                hScrollbar: false,
+                vScrollbar: false,
+                scrollX: true,//水平滚动
+                scrollY: false,//上下滚动
+                mouseWheel: true//支持鼠标滚动
+            }
+        };
+        opt = Zepto.extend(true, defaultOpt, opt || {});
+        if(opt.pram.scrollX) {
+            fancy.Scroller.setWidth(Zepto(opt.target).find('ul'));
+        }
+        if(opt.pram.scrollY) {
+            fancy.Scroller.setHeight(Zepto(opt.target).find('ul'));
+        }
+        var myScroll = new IScroll(opt.target, opt.pram);
+    }
+};
 /*select*/
 /**
  * @usage
