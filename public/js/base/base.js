@@ -272,7 +272,7 @@ fancy.load={
             maskColor : '#fff'
         };*/
         var temp = [];
-        temp.push('<div class="mask-layer" style="z-index:'+obj.zIndex+'">');
+        temp.push('<div id="'+obj.maskId +'" class="mask-layer '+ obj.styleSheet + '" style="z-index:'+obj.zIndex+'">');
         temp.push('<div class="mask-op" style="background:'+ obj.maskColor + ';opacity:' + obj.opacity + '"></div>');
         if(obj.isLoad) {
             temp.push('<div class="load">');
@@ -286,10 +286,12 @@ fancy.load={
     createLoad  : function(obj) {
         var that = this;
         var opt = {
+            maskId : 'layerMask',
             opacity : 0.5,
             isLoad : true,
             maskColor : '#fff',
-            zIndex : '999'
+            zIndex : '999',
+            styleSheet : 'default'
         };
         opt = Zepto.extend(true, opt, obj || {});
         Zepto('body').append(that.buildHtml(opt));
@@ -310,7 +312,6 @@ fancy.AJAX = function(obj) {
      dataType : 'json',
      beforeFn : function() {},
      successFn : function() {},
-     ssuccessEx : function() {},
      errorFn : function() {},
      isLoad : false,
      }; */
@@ -329,24 +330,10 @@ fancy.AJAX = function(obj) {
             obj.beforeFn && obj.beforeFn();
         },
         success : function(data) {
-            if(data.code == 0) {
-                //成功回调函数
-                obj.successFn && obj.successFn(data);
-            }else {
-                //其他成功状态
-                if(obj.isLoad) {
-                    fancy.load.closeLoad();
-                }
-                fancy.Box.showMsg(data.msg);
-                obj.ssuccessEx && obj.ssuccessEx();
-            }
+            obj.successFn && obj.successFn(data);
         },
         error : function() {
-            if(obj.isLoad) {
-                fancy.load.closeLoad();
-            }
-            fancy.Box.showMsg(fancy.G_ENV_VAR.ERRORMSG.BUSYNETWORK);
-            obj.errorEx && obj.errorEx()
+            obj.errorFn && obj.errorFn()
         }
     });
 };
@@ -355,12 +342,16 @@ fancy.namespace('Box');
 fancy.Box = {
     buildHtml : function(opt) {
         var html = [];
-        html.push('<div class="g-box" id='+opt.id+'>');
+        html.push('<div class="g-box ' + opt.styleSheet + '" id='+opt.id+'>');
         html.push('<div class="g-box-inner">');
         html.push('<div class="g-box-main">');
         html.push('<div class="g-box-h clearfix">');
-        html.push('<p class="f-l">'+opt.title+'</p>');
-        html.push('<a href="javascript:;" class="f-r J-close">X</a>');
+        if(opt.isClose) {
+            html.push('<p class="f-l">'+opt.title+'</p>');
+            html.push('<a href="javascript:;" class="f-r J-close">X</a>');
+        }else {
+            html.push('<p class="f-l w-p100">'+opt.title+'</p>');
+        }
         html.push('</div>');
 
         html.push('<div class="g-box-content">');
@@ -398,11 +389,13 @@ fancy.Box = {
     showBox : function(opt) {
         var defaultOpt = {
             title : '标题',
+            styleSheet : 'app-b',
             content : '<p>内容区域</p>',
             sureBtnTxt : '确定',
             cancleBtnTxt : '取消',
             transitionType : 'none',
             zIndex : '9999',
+            isClose : true,
             id : 'layerBox',
             isSure : true,
             isCancle : true,
@@ -422,7 +415,9 @@ fancy.Box = {
         opt = Zepto.extend(true, defaultOpt, opt || {});
         Zepto('body').append(fancy.Box.buildHtml(opt));
         fancy.load.createLoad({
-            isLoad : false
+            isLoad : false,
+            opacity : 0.5,
+            maskColor : '#000'
         });
         fancy.Box.setCenter('.g-box');
         var target = Zepto('#' + opt.id);
@@ -487,9 +482,11 @@ fancy.Box = {
     },
     alert : function(msg, sureFn) {
         fancy.Box.showBox({
-            title : '提示',
-            content : '<p class="msg">'+msg+'</p>',
+            title : '',
+            content : '<p class="msg fz-14">'+msg+'</p>',
             sureBtnTxt : '确定',
+            isClose : false,
+            styleSheet : 'app-c',
             transitionType : 'zoomInDown',
             autoClose : false,//是否有自动关闭功能
             isCancle : false,
@@ -515,6 +512,51 @@ fancy.Box = {
                 cancleFn && cancleFn();
             }
         });
+    }
+};
+/*Tip*/
+fancy.namespace('Tip');
+fancy.Tip = {
+    timer : null,
+    buildHtml : function(opt) {
+        var tpl = [];
+        tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated '+ opt.type + ' ' + opt.animation + '">');
+            tpl.push('<div class="tip-c tip-mask"></div>');
+            tpl.push('<p class="tip-c tip-content">' + opt.msg + '</p>');
+        tpl.push('<div>');
+        return tpl.join('');
+    },
+    showTip : function(opt) {
+        fancy.Tip.closeTip();
+        var defaultOpt = {
+            animation : 'bounceInDown',
+            isAutoClose : true,//自动关闭
+            autoCount : 3,//3秒自动关闭
+            msg : '错误信息',
+            top : 0,//距离屏幕上方的距离
+            type : 'normal'//提示类型error,warn,normal
+        };
+        var opt = Zepto.extend(true, defaultOpt, opt || {});
+        Zepto('body').append(fancy.Tip.buildHtml(opt));
+        //自动关闭功能
+        if(opt.isAutoClose) {
+            fancy.Tip.timer = window.setInterval(function() {
+                opt.autoCount--;
+                if(opt.autoCount == 1) {
+                    clearInterval(fancy.Tip.timer);
+                    fancy.Tip.closeTip();
+                }
+            },1000);
+        }
+    },
+    closeTip : function() {
+        if(fancy.Tip.timer) {
+            clearInterval(fancy.Tip.timer);
+        }
+        if( Zepto('.tip-box').size() > 0) {
+            Zepto('.tip-box').remove();
+        }
+
     }
 };
 /*Scroller*/

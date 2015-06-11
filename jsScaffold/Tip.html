@@ -19,71 +19,44 @@
 <body>
     <header class="doc-head clearfix">
         <a href="./../index.html" class="back-home">HOME</a>
-        <h4 class="h-theme">loading & mask</h4>
+        <h4 class="h-theme">Tip</h4>
     </header>
     <div class="container">
         <div class="row">
             <h5 class="p-t10 b-b-2 m-b10">描述</h5>
             <div class="box c-163">
-                fancy.load类;<br/>
-                创建load：fancy.createLoad();<br/>
-                关闭load: fancy.closeLoad();
+                fancy.Tip.showTip();
             </div>
-            <h5 class="p-t10 b-b-2 m-b10">示例一：只有蒙版</h5>
+            <h5 class="p-t10 b-b-2 m-b10">示例一</h5>
             <div class="box c-163">
 <pre>
 <code class="language-javascript">
-fancy.load.createLoad({
-    isLoad : false
+fancy.Tip.showTip({
+    type : 'normal',
+    top : '46',
+    isAutoClose : true,//自动关闭
+    autoCount : 3,//3秒自动关闭
+    msg : '请输入的信息不正确，请重新输入！'
 });
 </code>
 </pre>
-                <a class="button btn-light-navy js-mask" href="javascript:;">Run</a>
             </div>
-            <h5 class="p-t10 b-b-2 m-b10">示例二：带loading的蒙版1</h5>
-            <div class="box c-163">
-<pre>
-<code class="language-javascript">
-fancy.load.createLoad({
-    isLoad : true
-});
-</code>
-</pre>
-                <a class="button btn-light-navy js-load" href="javascript:;">Run</a>
-            </div>
-            <h5 class="p-t10 b-b-2 m-b10">示例三：带loading的蒙版2</h5>
-            <div class="box c-163">
-<pre>
-<code class="language-javascript">
-fancy.load.createLoad({
-    isLoad : true,
-    styleSheet : 'circle'
-});
-</code>
-</pre>
-                <a class="button btn-light-navy js-load2" href="javascript:;">Run</a>
-            </div>
+            <a class="button btn-light-navy js-tip" href="javascript:;">Run</a>
         </div>
     </div>
+
     <script src="../public/js/zepto/zepto.js"></script>
     <script src="../public/js/base/base.js"></script>
     <script src="../public/js/prism/prism.js"></script>
     <script src="../public/js/prism/prism.plugins.js"></script>
     <script>
-        Zepto('.js-mask').on('click', function() {
-            fancy.load.createLoad({
-                isLoad : false
-            });
-        });
-        Zepto('.js-load').on('click', function() {
-            fancy.load.createLoad({
-                isLoad : true
-            });
-        });
-        Zepto('.js-load2').on('click', function() {
-            fancy.load.createLoad({
-                isLoad : true,
-                styleSheet : 'circle'
+        Zepto('.js-tip').on('click', function() {
+            fancy.Tip.showTip({
+                type : 'normal',
+                top : '46',
+                isAutoClose : true,//自动关闭
+                autoCount : 5,//3秒自动关闭
+                msg : '请输入的信息不正确，请重新输入！'
             });
         });
     </script>
