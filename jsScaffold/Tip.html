@@ -27,21 +27,51 @@
             <div class="box c-163">
                 fancy.Tip.showTip();
             </div>
-            <h5 class="p-t10 b-b-2 m-b10">示例一</h5>
+            <h5 class="p-t10 b-b-2 m-b10">示例一：全宽度顶部提示</h5>
             <div class="box c-163">
 <pre>
 <code class="language-javascript">
-fancy.Tip.showTip({
-    type : 'normal',
-    top : '46',
-    isAutoClose : true,//自动关闭
-    autoCount : 3,//3秒自动关闭
-    msg : '请输入的信息不正确，请重新输入！'
-});
+fancy.Tip.fullWidth.top('保存成功！', '46', 5);
 </code>
 </pre>
             </div>
-            <a class="button btn-light-navy js-tip" href="javascript:;">Run</a>
+            <a class="button btn-light-navy js-tip1" href="javascript:;">Run</a>
+            <h5 class="p-t10 b-b-2 m-b10">示例二：全宽度底部提示</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.Tip.fullWidth.bottom('保存成功！', '0', 5);
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-tip2" href="javascript:;">Run</a>
+            <h5 class="p-t10 b-b-2 m-b10">示例三：顶部提示</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.Tip.width.top('保存成功！','100', 5);
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-tip3" href="javascript:;">Run</a>
+            <h5 class="p-t10 b-b-2 m-b10">示例四：底部提示</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.Tip.width.bottom('保存成功！','100', 5);
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-tip4" href="javascript:;">Run</a>
+            <h5 class="p-t10 b-b-2 m-b10">示例五：居中提示</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.Tip.width.center('保存成功！', 5);
+</code>
+</pre>
+            </div>
+            <a class="button btn-light-navy js-tip5" href="javascript:;">Run</a>
         </div>
     </div>
 
@@ -50,15 +80,20 @@ fancy.Tip.showTip({
     <script src="../public/js/prism/prism.js"></script>
     <script src="../public/js/prism/prism.plugins.js"></script>
     <script>
-        Zepto('.js-tip').on('click', function() {
-            fancy.Tip.showTip({
-                type : 'normal',
-                top : false,
-                isCenter : true,
-                isAutoClose : true,//自动关闭
-                autoCount : 100000,//3秒自动关闭
-                msg : '保存成功'
-            });
+        Zepto('.js-tip1').on('click', function() {
+            fancy.Tip.fullWidth.top('保存成功！', '46', 5);
+        });
+        Zepto('.js-tip2').on('click', function() {
+            fancy.Tip.fullWidth.bottom('保存成功！', '0', 5);
+        });
+        Zepto('.js-tip3').on('click', function() {
+            fancy.Tip.width.top('保存成功！','100', 5);
+        });
+        Zepto('.js-tip4').on('click', function() {
+            fancy.Tip.width.bottom('保存成功！','100', 5);
+        });
+        Zepto('.js-tip5').on('click', function() {
+            fancy.Tip.width.center('保存成功！', 5);
         });
     </script>
 </body>

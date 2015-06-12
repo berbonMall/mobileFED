@@ -366,10 +366,12 @@ input[data-role="select"] {
 .center.tip-box {
   width: 200px;
   height: 60px;
-  top: 50%;
   left: 50%;
-  margin-top: -30px;
   margin-left: -100px; }
+
+.center.c-m.tip-box {
+  top: 50%;
+  margin-top: -30px; }
 
 .center .tip-c {
   width: 200px;

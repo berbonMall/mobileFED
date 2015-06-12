@@ -525,16 +525,25 @@ fancy.Tip = {
     timer : null,
     buildHtml : function(opt) {
         var tpl = [];
-        if(opt.top) {
-            tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
+        if(opt.isFullWidth) {
+            if(opt.top) {
+                tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
+            }
+            if(opt.bottom) {
+                tpl.push('<div style="bottom:' + opt.bottom+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
+            }
+        }else {
+            if(opt.bottom || opt.top) {
+                if(opt.top) {
+                    tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated center '+ opt.type + ' ' + opt.animation + '">');
+                }
+                if(opt.bottom) {
+                    tpl.push('<div style="bottom:' + opt.bottom+ 'px" class="tip-box animated center '+ opt.type + ' ' + opt.animation + '">');
+                }
+            }else {
+                tpl.push('<div class="tip-box animated center c-m '+ opt.type + ' ' + opt.animation + '">');
+            }
         }
-        if(opt.bottom) {
-            tpl.push('<div style="bottom:' + opt.bottom+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
-        }
-        if(opt.isCenter) {
-            tpl.push('<div class="tip-box animated center '+ opt.type + ' ' + opt.animation +'">');
-        }
-
             tpl.push('<div class="tip-c tip-mask"></div>');
             tpl.push('<p class="tip-c tip-content">' + opt.msg + '</p>');
         tpl.push('<div>');
@@ -546,10 +555,11 @@ fancy.Tip = {
             animation : 'bounceInDown',
             isAutoClose : true,//自动关闭
             autoCount : 3,//3秒自动关闭
-            msg : '错误信息',
+            isFullWidth : true,//宽度是否为屏幕宽度
+            msg : '提示信息',
             top : '0',//距离屏幕上方的距离
             bottom : false, //距离屏幕下方的距离
-            isCenter : false,//是否居中显示
+            center : false,//是否居中显示
             type : 'normal'//提示类型error,warn,normal
         };
         var opt = Zepto.extend(true, defaultOpt, opt || {});
@@ -565,9 +575,59 @@ fancy.Tip = {
             },1000);
         }
     },
-    top : function(str, time) {
-
-    }
+    fullWidth : {
+        top : function(str, top, time) {
+            fancy.Tip.showTip({
+                msg : str,
+                top : top,
+                autoCount : time
+            })
+        },
+        bottom : function(str, bottom, time) {
+            fancy.Tip.showTip({
+                animation : 'bounceInUp',
+                msg : str,
+                top : false,
+                bottom : bottom,
+                autoCount : time
+            })
+        }
+    },
+    width : {
+        top : function(str, top, time) {
+            fancy.Tip.showTip({
+                animation : 'bounceInDown',
+                msg : str,
+                isFullWidth : false,
+                top : top,
+                bottom : false,
+                center : true,
+                autoCount : time
+            })
+        },
+        bottom : function(str, bottom, time) {
+            fancy.Tip.showTip({
+                animation : 'bounceInUp',
+                msg : str,
+                isFullWidth : false,
+                top : false,
+                bottom : bottom,
+                center : true,
+                autoCount : time
+            })
+        },
+        center : function(str, time) {
+            fancy.Tip.showTip({
+                animation : 'bounceInUp',
+                msg : str,
+                isFullWidth : false,
+                top : false,
+                bottom : false,
+                center : true,
+                autoCount : time
+            })
+        }
+    },
     closeTip : function() {
         if(fancy.Tip.timer) {
             clearInterval(fancy.Tip.timer);
