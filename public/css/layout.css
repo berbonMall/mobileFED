@@ -117,13 +117,9 @@ body {
   color: #333;
   text-decoration: none; }
 
-.app-c .g-box-btn-control {
-  text-align: right; }
-
 .app-c .g-box-btn-control input {
   padding: 0;
   border: none 0;
-  margin-right: 20px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   font-size: 18px;

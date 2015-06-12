@@ -45,7 +45,8 @@ fancy.load.createLoad({
 <pre>
 <code class="language-javascript">
 fancy.load.createLoad({
-    isLoad : true
+    isLoad : true,
+    loadImg : 'b_load.gif'
 });
 </code>
 </pre>
@@ -57,7 +58,8 @@ fancy.load.createLoad({
 <code class="language-javascript">
 fancy.load.createLoad({
     isLoad : true,
-    styleSheet : 'circle'
+    styleSheet : 'circle',
+    loadImg : 'w_load.gif'
 });
 </code>
 </pre>
@@ -77,13 +79,15 @@ fancy.load.createLoad({
         });
         Zepto('.js-load').on('click', function() {
             fancy.load.createLoad({
-                isLoad : true
+                isLoad : true,
+                loadImg : 'b_load.gif'
             });
         });
         Zepto('.js-load2').on('click', function() {
             fancy.load.createLoad({
                 isLoad : true,
-                styleSheet : 'circle'
+                styleSheet : 'circle',
+                loadImg : 'w_load.gif'
             });
         });
     </script>

@@ -276,7 +276,7 @@ fancy.load={
         temp.push('<div class="mask-op" style="background:'+ obj.maskColor + ';opacity:' + obj.opacity + '"></div>');
         if(obj.isLoad) {
             temp.push('<div class="load">');
-            temp.push('<img  width="24" height="24" src="'+fancy.G_ENV_VAR.STATIC+'images/load.gif" />');
+            temp.push('<img  width="24" height="24" src="'+fancy.G_ENV_VAR.STATIC+'images/'+ obj.loadImg+'" />');
             temp.push('</div>');
         }
         temp.push('</div>');
@@ -291,7 +291,8 @@ fancy.load={
             isLoad : true,
             maskColor : '#fff',
             zIndex : '999',
-            styleSheet : 'default'
+            styleSheet : 'default',
+            loadImg : 'load.gif'
         };
         opt = Zepto.extend(true, opt, obj || {});
         Zepto('body').append(that.buildHtml(opt));
@@ -364,7 +365,9 @@ fancy.Box = {
             if(opt.isCancle) {
                 html.push('<input type="button" value="取消" class="btn-small btn-navy J-cancle"/>');
             }
-            html.push('&nbsp;&nbsp;');
+            if(opt.isCancle && opt.isSure) {
+                html.push('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
             if(opt.isSure) {
                 html.push('<input type="button" value="确定" class="btn-small btn-deep-blue c-wt J-sure"/>');
             }
