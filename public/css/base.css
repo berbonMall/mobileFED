@@ -453,6 +453,9 @@ a.c-wt:hover {
 .p-a10 {
   padding: 10px !important; }
 
+.p-a-10 {
+  padding: 10px 20px 20px 20px; }
+
 .p-a15 {
   padding: 15px; }
 
@@ -658,7 +661,7 @@ a.c-wt:hover {
   background: url(http://static.berbon.com/marketingH5/images/load.gif) no-repeat center; }
 
 .layer-bg {
-  top: 0px;
+  top: 0;
   background-color: rgba(222, 222, 222, 0.5); }
 
 .layerOut {

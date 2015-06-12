@@ -103,7 +103,7 @@ body {
   border-radius: 3px; }
 
 .app-c .g-box-h {
-  padding: 5px 10px;
+  padding: 10px 10px 0;
   border-radius: 3px;
   background-color: #fff;
   color: #333; }
@@ -114,18 +114,27 @@ body {
   font-size: 18px; }
 
 .app-c .g-box-h a {
-  color: #fff;
+  color: #333;
   text-decoration: none; }
 
+.app-c .g-box-btn-control {
+  text-align: right; }
+
 .app-c .g-box-btn-control input {
+  padding: 0;
   border: none 0;
-  color: #333333 !important;
+  margin-right: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
   font-size: 18px;
   font-weight: normal;
-  padding: 10px 25px 0; }
+  background-color: #fff !important; }
 
 .app-c .btn-deep-blue {
-  background-color: #fff !important; }
+  color: #f00 !important; }
+
+.app-c .btn-navy {
+  color: #666 !important; }
 
 .app-c.g-box .msg {
   padding: 10px;
@@ -339,17 +348,10 @@ input[data-role="select"] {
   position: fixed;
   z-index: 9999;
   box-sizing: border-box;
-  width: 100%;
-  height: 40px;
-  left: 0;
   font-size: 16px; }
 
 .tip-c {
-  position: absolute;
-  width: 100%;
-  height: 40px;
-  top: 0;
-  left: 0; }
+  position: absolute; }
 
 .tip-mask {
   opacity: 0.7;
@@ -360,6 +362,31 @@ input[data-role="select"] {
   z-index: 2;
   line-height: 40px;
   text-align: center; }
+
+.center.tip-box {
+  width: 200px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  margin-top: -30px;
+  margin-left: -100px; }
+
+.center .tip-c {
+  width: 200px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 5px; }
+
+.full-width.tip-box {
+  width: 100%;
+  height: 40px;
+  left: 0; }
+
+.full-width .tip-c {
+  width: 100%;
+  height: 40px;
+  top: 0;
+  left: 0; }
 
 .normal .tip-mask {
   background: #000; }

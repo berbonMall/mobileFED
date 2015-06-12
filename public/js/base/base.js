@@ -361,13 +361,14 @@ fancy.Box = {
         if(opt.isSure || opt.isCancle) {
             html.push('<div class="g-box-btn">');
             html.push('<p class="g-box-btn-control p-b10 ta-c">');
-            if(opt.isSure) {
-                html.push('<input type="button" value="确定" class="btn-small btn-deep-blue c-wt J-sure"/>');
-            }
-            html.push('&nbsp;&nbsp;');
             if(opt.isCancle) {
                 html.push('<input type="button" value="取消" class="btn-small btn-navy J-cancle"/>');
             }
+            html.push('&nbsp;&nbsp;');
+            if(opt.isSure) {
+                html.push('<input type="button" value="确定" class="btn-small btn-deep-blue c-wt J-sure"/>');
+            }
+
             html.push('</p>');
             html.push('</div>');
         }
@@ -389,7 +390,7 @@ fancy.Box = {
     showBox : function(opt) {
         var defaultOpt = {
             title : '标题',
-            styleSheet : 'app-b',
+            styleSheet : 'app-c',
             content : '<p>内容区域</p>',
             sureBtnTxt : '确定',
             cancleBtnTxt : '取消',
@@ -472,17 +473,19 @@ fancy.Box = {
     },
     showMsg : function(str, time) {
         fancy.Box.showBox({
-            title : '提示',
+            title : '',
             isSure : false,
             isCancle : false,
             autoCount : time || 3,
+            isClose : true,
+            styleSheet : 'app-c',
             transitionType : 'zoomInDown',
-            content : '<p class="p-a10">'+ str +'</p>'
+            content : '<p class="p-a-10">'+ str +'</p>'
         })
     },
     alert : function(msg, sureFn) {
         fancy.Box.showBox({
-            title : '',
+            title : '弹出提示',
             content : '<p class="msg fz-14">'+msg+'</p>',
             sureBtnTxt : '确定',
             isClose : false,
@@ -502,8 +505,10 @@ fancy.Box = {
             sureBtnTxt : '确定',
             cancleBtnTxt : '取消',
             isSure : true,
+            isClose : false,
             isCancle : true,
             transitionType : 'zoomInDown',
+            styleSheet : 'app-c',
             autoClose : false,//是否有自动关闭功能
             sureFn : function() {
                 sureFn && sureFn();
@@ -520,7 +525,16 @@ fancy.Tip = {
     timer : null,
     buildHtml : function(opt) {
         var tpl = [];
-        tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated '+ opt.type + ' ' + opt.animation + '">');
+        if(opt.top) {
+            tpl.push('<div style="top:' + opt.top+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
+        }
+        if(opt.bottom) {
+            tpl.push('<div style="bottom:' + opt.bottom+ 'px" class="tip-box animated full-width '+ opt.type + ' ' + opt.animation + '">');
+        }
+        if(opt.isCenter) {
+            tpl.push('<div class="tip-box animated center '+ opt.type + ' ' + opt.animation +'">');
+        }
+
             tpl.push('<div class="tip-c tip-mask"></div>');
             tpl.push('<p class="tip-c tip-content">' + opt.msg + '</p>');
         tpl.push('<div>');
@@ -533,7 +547,9 @@ fancy.Tip = {
             isAutoClose : true,//自动关闭
             autoCount : 3,//3秒自动关闭
             msg : '错误信息',
-            top : 0,//距离屏幕上方的距离
+            top : '0',//距离屏幕上方的距离
+            bottom : false, //距离屏幕下方的距离
+            isCenter : false,//是否居中显示
             type : 'normal'//提示类型error,warn,normal
         };
         var opt = Zepto.extend(true, defaultOpt, opt || {});
@@ -549,6 +565,9 @@ fancy.Tip = {
             },1000);
         }
     },
+    top : function(str, time) {
+
+    }
     closeTip : function() {
         if(fancy.Tip.timer) {
             clearInterval(fancy.Tip.timer);

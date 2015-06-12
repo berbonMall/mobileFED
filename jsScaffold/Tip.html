@@ -53,10 +53,11 @@ fancy.Tip.showTip({
         Zepto('.js-tip').on('click', function() {
             fancy.Tip.showTip({
                 type : 'normal',
-                top : '46',
+                top : false,
+                isCenter : true,
                 isAutoClose : true,//自动关闭
-                autoCount : 5,//3秒自动关闭
-                msg : '请输入的信息不正确，请重新输入！'
+                autoCount : 100000,//3秒自动关闭
+                msg : '保存成功'
             });
         });
     </script>

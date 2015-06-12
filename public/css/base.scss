@@ -178,6 +178,7 @@ a.c-wt:hover {text-decoration:underline}
 .p-a5 {padding:5px}
 .p-a2 {padding:2px}
 .p-a10 {padding:10px !important;}
+.p-a-10 {padding:10px 20px 20px 20px}
 
 .p-a15 {padding:15px}
 .p-l5{padding-left:5px}
@@ -255,5 +256,5 @@ a.c-wt:hover {text-decoration:underline}
 /* css3 trans */
 .trans{-webkit-transition:all 0.3s;transition:all 0.3s;}
 .loading{background:url(#{$loadImgSrc}) no-repeat center;}
-.layer-bg{top:0px;background-color: rgba(222,222,222,0.5);}
+.layer-bg{top:0;background-color: rgba(222,222,222,0.5);}
 .layerOut{top:20%;}
