@@ -54,9 +54,21 @@ body {
 .app-c .g-box-main {background-color:#FFF; -webkit-border-radius:3px;
   -moz-border-radius:3px;
   border-radius:3px;}
-.app-c .g-box-h {padding:10px 10px 0;border-radius:3px;background-color:#fff;color:#333}
+.app-c .g-box-h {padding:15px 15px 0;border-radius:3px;background-color:#fff;color:#333}
 .app-c .g-box-h p{color:#333; text-align:center; font-size:18px;}
 .app-c .g-box-h a{color:#333;text-decoration:none;}
+.app-c .g-box-btn-control.bt-wrap {
+  padding:0 20%;
+}
+.app-c .g-box-btn-control{
+  padding-bottom:20px !important;
+}
+.app-c .g-box-btn-control.bt-wrap input:first-child{
+  float:left;
+}
+.app-c .g-box-btn-control.bt-wrap input:last-child{
+  float:right;
+}
 .app-c .g-box-btn-control input {
   padding:0;
   border:none 0;
@@ -67,12 +79,12 @@ body {
   background-color:#fff !important;
 }
 .app-c .btn-deep-blue {
-  color:#f00 !important;
+  color:#f5880c !important;
 }
 .app-c .btn-navy {
   color:#666 !important;
 }
-.app-c.g-box .msg{padding:10px;text-align:justfy;font-size:16px;color:#666}
+.app-c.g-box .msg{padding:15px 15px 30px;text-align:justfy;font-size:16px;color:#666}
 /*文字溢出省略号*/
 .ellipsis {
   text-overflow:ellipsis;

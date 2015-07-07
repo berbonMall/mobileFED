@@ -361,17 +361,17 @@ fancy.Box = {
 
         if(opt.isSure || opt.isCancle) {
             html.push('<div class="g-box-btn">');
-            html.push('<p class="g-box-btn-control p-b10 ta-c">');
-            if(opt.isCancle) {
-                html.push('<input type="button" value="取消" class="btn-small btn-navy J-cancle"/>');
-            }
             if(opt.isCancle && opt.isSure) {
-                html.push('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+                html.push('<p class="g-box-btn-control bt-wrap clearfix">');
+            }else {
+                html.push('<p class="g-box-btn-control p-b10 ta-c">');
+            }
+            if(opt.isCancle) {
+                html.push('<input type="button" value="'+ opt.cancleBtnTxt+'" class="btn-small btn-navy J-cancle"/>');
             }
             if(opt.isSure) {
-                html.push('<input type="button" value="确定" class="btn-small btn-deep-blue c-wt J-sure"/>');
+                html.push('<input type="button" value="'+ opt.sureBtnTxt+'" class="btn-small btn-deep-blue c-wt J-sure"/>');
             }
-
             html.push('</p>');
             html.push('</div>');
         }
