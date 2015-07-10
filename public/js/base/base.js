@@ -932,3 +932,36 @@ fancy.Select = {
         fancy.Select.trigger(obj);
     }
 };
+/*图片预加载*/
+/* @param  {array}    urlArray 要预加载的imgUrl,['1.jpg']
+*  @return {obj}      返回对象，包含done方法，即所有图片加载完回调函数
+*/
+fancy.namespace('preloadPic');
+fancy.preloadPic = function(urlArray) {
+    var picArr=[], loadedPics=0;
+    var picFinished = function(){};
+    var arr = (typeof arr != "object")? [urlArray] : urlArray;
+    function picHandle(){
+        loadedPics++;
+        if (loadedPics == arr.length){
+            //加载完成用我们调用picFinished函数并将picArr数组做为参数传递进去
+            picFinished(picArr);
+        }
+    }
+    for (var i = 0; i < arr.length; i++){
+        picArr[i] = new Image();
+        picArr[i].src = arr[i];
+        picArr[i].onload = function(){
+            picHandle();
+        };
+        picArr[i].onerror = function(){
+            picHandle();
+        };
+    }
+    //此处返回一个空白对象的done方法
+    return {
+        done : function(f){
+            picFinished = f || picFinished;
+        }
+    }
+};
