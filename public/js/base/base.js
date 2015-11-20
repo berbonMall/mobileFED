@@ -272,7 +272,7 @@ fancy.load={
             maskColor : '#fff'
         };*/
         var temp = [];
-        temp.push('<div id="'+obj.maskId +'" class="mask-layer '+ obj.styleSheet + '" style="z-index:'+obj.zIndex+'">');
+        temp.push('<div id="'+obj.maskId +'" class="mask-layer '+ obj.styleSheet + '" style="z-index:'+obj.zIndex+';">');
         temp.push('<div class="mask-op" style="background:'+ obj.maskColor + ';opacity:' + obj.opacity + '"></div>');
         if(obj.isLoad) {
             temp.push('<div class="load">');
@@ -432,9 +432,9 @@ fancy.Box = {
             target.addClass('animated ' + opt.transitionType);
         }
         target.find('.J-close').on('click', function() {
+            fancy.load.closeLoad();
             opt.shutFn && opt.shutFn();
             target.remove();
-            fancy.load.closeLoad();
             if(timer) {
                 clearInterval(timer);
             }
@@ -443,8 +443,8 @@ fancy.Box = {
             target.find('.J-sure').on('click', function() {
                 opt.sureFn && opt.sureFn();
                 if(opt.isSureCloseBox) {
-                    target.remove();
                     fancy.load.closeLoad();
+                    target.remove();
                     if(timer) {
                         clearInterval(timer);
                     }
@@ -453,9 +453,9 @@ fancy.Box = {
         }
         if(target.find('.J-cancle').size() > 0) {
             target.find('.J-cancle').on('click', function() {
+                fancy.load.closeLoad();
                 opt.cancleFn && opt.cancleFn();
                 target.remove();
-                fancy.load.closeLoad();
                 if(timer) {
                     clearInterval(timer);
                 }
@@ -963,5 +963,150 @@ fancy.preloadPic = function(urlArray) {
         done : function(f){
             picFinished = f || picFinished;
         }
+    }
+};
+
+
+/*Select*/
+/**
+ * @usage
+ * fancy.Select.init({
+    target : Zepto('#fancy'),
+    data : cityData,
+    stLevel : 3,//下拉层级，分为3个等级1-2-3，与上面的data对应
+    callback : function(val) {
+        alert('点击了确定，所选区域=' + val);
+        Zepto('#fancy').val(val);
+    }
+});
+ */
+fancy.namespace('multiSelect');
+fancy.multiSelect = {
+    myScroll: [],//scroll实例化对象存储
+    buildPanelTpl : function(level, data) {
+        var tpl = [];
+        Zepto.each(data, function(s, v) {
+            if(s == 0) {
+                tpl.push('<li class="selected" data-v="' + v.v +'">'+ v.n +'</li>');
+            }else {
+                tpl.push('<li data-v="' + v.v +'">'+ v.n +'</li>');
+            }
+        });
+        return tpl.join('');
+    },
+    buildSubHtml : function(level, data) {
+        var tpl = [];
+        tpl.push('<div class="multi-select-content multi-sub-level-'+ (level-1) +'">');
+            tpl.push('<ul>');
+                tpl.push('<li></li><li></li>');
+                tpl.push(fancy.multiSelect.buildPanelTpl(level, data));
+                tpl.push('<li></li><li></li>');
+            tpl.push('</ul>');
+        tpl.push('</div>');
+        return tpl.join('');
+    },
+    renderHtml : function(level, data) {
+        var prefix = 'multi-select-level-';
+        var className = prefix + level;
+        var tpl = [];
+        tpl.push('<div class="u-full-width multi-select-box">');
+            tpl.push('<div class="multi-select-panel">');
+                tpl.push('<h5 class="multi-select-title">请选择</h5>');
+                tpl.push('<div class="multi-select-body '+ className+ '">');
+                    for(var i = 0; i < level; i++) {
+                        tpl.push(fancy.multiSelect.buildSubHtml(i + 1, data[i]));
+                    }
+                    tpl.push('<div class="multi-select-line"></div>');
+                tpl.push('</div>');
+                tpl.push('<div class="multi-select-confirm">');
+                    tpl.push('<a class="multi-select-sure" href="javascript:;">确定</a>');
+                    tpl.push('<a class="multi-select-cancle" href="javascript:;">取消</a>');
+                tpl.push('</div>');
+            tpl.push('</div>');
+        tpl.push('</div>');
+        Zepto('body').append(tpl.join(''));
+    },
+    scrollerExcute : function(level, data) {
+        fancy.multiSelect.myScroll[level] = new IScroll('.multi-sub-level-' + level ,{
+            snap : 'li',
+            probeType : 2,
+            tap : true
+        });
+        fancy.multiSelect.myScroll[level].on('scrollEnd', function(){
+            fancy.multiSelect.handleScroller.updateSelected(this);
+        });
+    },
+    handleScroller : {
+        hidePanel : function() {
+            Zepto('.multi-select-box').remove();
+            fancy.load.closeLoad();
+        },
+        showPanel : function() {
+            fancy.load.createLoad({
+                isLoad : false,
+                opacity : 0.2,
+                maskColor : '#000'
+            });
+            Zepto('.multi-select-box').addClass('show');
+        },
+        updateSelected : function(iscroll){
+            var container = Zepto(iscroll.wrapper);
+            var current = container.find('li').eq(fancy.multiSelect.handleScroller.getCurrentSelect(iscroll));
+            current.addClass('selected').siblings().removeClass('selected');
+        },
+        getCurrentSelect : function(iscroll) {
+            var container = Zepto(iscroll.wrapper);
+            var itemHeight = container.find('li').height();
+            var index = (-iscroll.y) / itemHeight + 2;
+            return index;
+        }
+    },
+    sureChoose : function(target, callback) {
+        Zepto('.multi-select-sure').on('click', function() {
+            var selectTarget = Zepto('.multi-select-body').find('.selected');
+            if(selectTarget.size() > 0) {
+                var val = [];
+                Zepto.each(selectTarget, function(index, item) {
+                    var curVal = Zepto(this).data('v');
+                    if(curVal !== '...') {
+                        val.push(curVal);
+                    }
+                });
+                if(callback) {
+                    callback(val.join('-'));
+                }else {
+                    target.val(val.join('-'));
+                }
+
+            }
+            fancy.multiSelect.handleScroller.hidePanel();
+        });
+    },
+    cancleChoose : function() {
+        Zepto('.multi-select-cancle').on('click', function() {
+            fancy.multiSelect.handleScroller.hidePanel();
+        });
+    },
+    trigger : function(opt) {
+        var defaultOpt = {
+            stLevel : 4,//联动层级分为3个等级1-2-3
+            data : [],//数据源
+            target : Zepto('#fancy')//触发对象
+        };
+        var opt = Zepto.extend(true, defaultOpt, opt || {});
+        //第一次加载，初始化
+        opt.target.on('click', function() {
+            fancy.multiSelect.renderHtml(opt.stLevel, opt.data);
+            for(var i = 0; i < opt.stLevel; i++) {
+                fancy.multiSelect.scrollerExcute(i, opt.data)
+            }
+           fancy.multiSelect.handleScroller.showPanel();
+            fancy.multiSelect.sureChoose(opt.target, opt.callback ? opt.callback : '');
+            fancy.multiSelect.cancleChoose();
+        });
+
+    },
+    init : function(obj) {
+        fancy.multiSelect.trigger(obj);
     }
 };

@@ -61,7 +61,32 @@ fancy.Box.alert('调用alert方法！');
             fancy.Box.alert('成功调用alert方法！');
         });
         Zepto('.js-confirm').on('click', function() {
-            fancy.Box.confirm('成功调用confirm方法！', function() {alert('点击了确定')}, function() {alert('点击了取消')});
+           /* fancy.Box.confirm('成功调用confirm方法！', function() {
+                Zepto('#layerBox').remove();
+
+            }, function() {alert('点击了取消')});*/
+            fancy.Box.showBox({
+                title : '标题',
+                styleSheet : 'app-c',
+                content : '<p><span contenteditable="true" style="display:block;border:1px solid #ccc"></span></p>',
+                sureBtnTxt : '确定',
+                cancleBtnTxt : '取消',
+                transitionType : 'none',
+                zIndex : '9999',
+                isClose : true,
+                id : 'layerBox',
+                isSure : true,
+                isCancle : true,
+                isSureCloseBox : true,//点确定是否关闭弹出层
+                autoClose : false,//是否有自动关闭功能
+                autoCount : 3,//倒计时时间
+                sureFn : function() {
+                },
+                cancleFn : function() {
+                },
+                shutFn : function() {
+                },
+            });
         });
     </script>
 </body>

@@ -362,3 +362,103 @@ input[data-role="select"] {
   color:#666;
 }
 
+/*multi-select*/
+/*滑动选择*/
+.multi-select-box {
+  -moz-transition: -moz-transform .3s ease-in-out 0s;
+  -ms-transition: -ms-transform .3s ease-in-out 0s;
+  -webkit-transition: -webkit-transform .3s ease-in-out 0s;
+  -o-transition: -o-transform .3s ease-in-out 0s;
+  transition: transform .3s ease-in-out 0s;
+  -ms-transform: translate3d(0,100%,0);
+  -moz-transform: translate3d(0,100%,0);
+  -webkit-transform: translate3d(0,100%,0);
+  -o-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 9999;
+  -webkit-user-select: none;
+}
+.multi-select-box.show{
+  -ms-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -o-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.multi-select-panel {
+  background-color: #F7F7F7;
+  padding: 10px 0;
+}
+.multi-select-title {
+  color: #4ECCC4;
+  font-size: 16px;
+  text-align: center;
+  font-weight: normal;
+}
+.multi-select-confirm {
+  margin:15px 0 25px;
+  text-align: center;
+}
+.multi-select-sure {
+  color: #4ECCC4 !important;
+}
+.multi-select-cancle {
+  color: #4ECCC4 !important;
+  margin-left: 16%;
+}
+.multi-select-body {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.multi-select-content {
+  height:100%;
+}
+.multi-select-level-2 .multi-select-content {
+  width:49.8%;
+  float:left;
+}
+.multi-select-level-3 .multi-select-content {
+  width:33.3%;
+  float:left;
+}
+.multi-select-level-4 .multi-select-content {
+  width:25%;
+  float:left;
+}
+.multi-select-content li{
+  height: 48px;
+  line-height: 48px;
+  font-size: 18px;
+  color: #555;
+  text-align:center;
+  text-overflow:ellipsis;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.multi-select-content li.selected{
+  color: #4ECCC4;
+}
+.multi-select-line, .multi-select-line:after{
+  top: 95px;
+  position: absolute;
+  border-top: 1px solid #e9e9e9;
+  width: 100%;
+  height: 0;
+  font-size: 0;
+
+}
+.multi-select-line:after{
+  content: "";
+  top: 48px;
+}
+input[data-role="select"] {
+  padding:4px;
+  border:1px solid #ccc;
+  color:#ccc
+}

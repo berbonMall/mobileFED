@@ -74,7 +74,10 @@ fancy.Tip.width.center('保存成功！', 5);
             <a class="button btn-light-navy js-tip5" href="javascript:;">Run</a>
         </div>
     </div>
-
+    <input type="text" name="fancy" id="fancy" style="border:1px solid #ccc"/> <br/>
+    <br/> <br/> <br/>
+    <a href="javascript:;" class="testIpt">test input</a>
+    <br/> <br/> <br/> <br/> <br/>
     <script src="../public/js/zepto/zepto.js"></script>
     <script src="../public/js/base/base.js"></script>
     <script src="../public/js/prism/prism.js"></script>
@@ -94,6 +97,11 @@ fancy.Tip.width.center('保存成功！', 5);
         });
         Zepto('.js-tip5').on('click', function() {
             fancy.Tip.width.center('保存成功！', 5);
+        });
+    </script>
+    <script>
+        Zepto('.testIpt').on('click', function() {
+            fancy.Tip.width.top('保存成功！','100', 5);
         });
     </script>
 </body>

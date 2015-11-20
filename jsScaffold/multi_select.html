@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="author" content="guofan">
+    <meta name="copyright" content="Copyright (c) 1998-2015 mobileFED">
+    <meta name="description" content="mobileFED"/>
+    <meta name="format-detection" content="telephone=no">
+    <title>mobileFED</title>
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/normalize.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/skeleton/skeleton.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/base.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/layout.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/animate/animations.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/prism/prism.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="./../public/css/page/doc.css" media="all" />
+</head>
+<body>
+    <header class="doc-head clearfix">
+        <a href="./../index.html" class="back-home">HOME</a>
+        <h4 class="h-theme">multi-select</h4>
+    </header>
+    <div class="container">
+        <div class="row">
+            <h5 class="p-t10 b-b-2 m-b10">描述</h5>
+            <div class="box c-163">
+                multi-select类；<br/>
+               模拟手持设备下拉；
+            </div>
+            <h5 class="p-t10 b-b-2 m-b10">示例：</h5>
+            <div class="box c-163">
+<pre>
+<code class="language-javascript">
+fancy.multiSelect.init({
+    target : Zepto('#fancy'),
+    data : multiData,
+    stLevel : 4,//下拉层级，分为3个等级1-2-3，与上面的data对应
+    callback : function(val) {
+        alert('点击了确定，所选区域=' + val);
+        Zepto('#fancy').val(val);
+    }
+});
+</code>
+</pre>
+                <input type="text" name="fancy" readonly id="fancy" data-role="select" value="请选择..."/>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="u-full-width multi-select-box show">
+        <div class="multi-select-panel">
+            <h5 class="multi-select-title">请选择</h5>
+            <div class="multi-select-body multi-select-level-4">
+                <div class="multi-select-content">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li data-v="">选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li>选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="multi-select-content">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li data-v="">选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li>选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="multi-select-content">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li data-v="">选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li>选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="multi-select-content">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li data-v="">选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li>选项1</li>
+                        <li>选项2</li>
+                        <li>选项3</li>
+                        <li>选项4</li>
+                        <li>选项5</li>
+                        <li>选项6</li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div class="multi-select-line"></div>
+            </div>
+            <div class="multi-select-confirm">
+                <a class="multi-select-sure" href="javascript:;">确定</a>
+                <a class="multi-select-cancle" href="javascript:;">取消</a>
+            </div>
+        </div>
+    </div>-->
+    <script src="../public/js/zepto/zepto.js"></script>
+    <script src="../public/js/iScroll/iscroll.js"></script>
+    <script src="../public/js/base/base.js"></script>
+    <script src="../public/js/base/multi.json.js"></script>
+    <script src="../public/js/prism/prism.js"></script>
+    <script src="../public/js/prism/prism.plugins.js"></script>
+    <script>
+        fancy.multiSelect.init({
+            target : Zepto('#fancy'),
+            data : multiData,
+            stLevel : 4,//下拉层级，分为3个等级1-2-3，与上面的data对应
+            callback : function(val) {
+                alert('点击了确定，所选区域=' + val);
+                Zepto('#fancy').val(val);
+            }
+        });
+    </script>
+</body>
+</html>
