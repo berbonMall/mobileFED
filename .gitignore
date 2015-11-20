@@ -1,2 +1,3 @@
 #忽略PyCharm环境文件
 /.idea
+*.orig
